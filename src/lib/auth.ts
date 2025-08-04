@@ -2,6 +2,7 @@ import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { db } from "@/db"; 
 import { FullSchema } from "@/db/schema";
+import { haveIBeenPwned } from "better-auth/plugins"
  
 export const auth = betterAuth({
     database: drizzleAdapter(db, {
@@ -25,5 +26,7 @@ export const auth = betterAuth({
         }, 
 
     }, 
+
+    plugins: [haveIBeenPwned({customPasswordCompromisedMessage: "Your password has been compromised in a data breach. Please choose a different password."})],
 
 });

@@ -3,7 +3,6 @@ import {
   text,
   timestamp,
   boolean,
-  integer,
 } from "drizzle-orm/pg-core";
 import {nanoid} from "nanoid";
 
@@ -12,16 +11,10 @@ export const user = pgTable("user", {
   id: text("id").primaryKey(),
   name: text("name").notNull(),
   email: text("email").notNull().unique(),
-  emailVerified: boolean("email_verified")
-    .$defaultFn(() => false)
-    .notNull(),
+  emailVerified: boolean("email_verified").$defaultFn(() => false).notNull(),
   image: text("image"),
-  createdAt: timestamp("created_at")
-    .$defaultFn(() => /* @__PURE__ */ new Date())
-    .notNull(),
-  updatedAt: timestamp("updated_at")
-    .$defaultFn(() => /* @__PURE__ */ new Date())
-    .notNull(),
+  createdAt: timestamp("created_at").$defaultFn(() => /* @__PURE__ */ new Date()).notNull(),
+  updatedAt: timestamp("updated_at").$defaultFn(() => /* @__PURE__ */ new Date()).notNull(),
 });
 
 export const session = pgTable("session", {
@@ -32,18 +25,14 @@ export const session = pgTable("session", {
   updatedAt: timestamp("updated_at").notNull(),
   ipAddress: text("ip_address"),
   userAgent: text("user_agent"),
-  userId: text("user_id")
-    .notNull()
-    .references(() => user.id, { onDelete: "cascade" }),
+  userId: text("user_id").notNull().references(() => user.id, { onDelete: "cascade" }),
 });
 
 export const account = pgTable("account", {
   id: text("id").primaryKey(),
   accountId: text("account_id").notNull(),
   providerId: text("provider_id").notNull(),
-  userId: text("user_id")
-    .notNull()
-    .references(() => user.id, { onDelete: "cascade" }),
+  userId: text("user_id").notNull().references(() => user.id, { onDelete: "cascade" }),
   accessToken: text("access_token"),
   refreshToken: text("refresh_token"),
   idToken: text("id_token"),
@@ -60,31 +49,34 @@ export const verification = pgTable("verification", {
   identifier: text("identifier").notNull(),
   value: text("value").notNull(),
   expiresAt: timestamp("expires_at").notNull(),
-  createdAt: timestamp("created_at").$defaultFn(
-    () => /* @__PURE__ */ new Date()
-  ),
-  updatedAt: timestamp("updated_at").$defaultFn(
-    () => /* @__PURE__ */ new Date()
-  ),
+  createdAt: timestamp("created_at").$defaultFn(() => /* @__PURE__ */ new Date()),
+  updatedAt: timestamp("updated_at").$defaultFn(() => /* @__PURE__ */ new Date()),
 });
 
 
-export const Links = pgTable("links", {
+// waitlist
+export const waitlist = pgTable("waitlist", {
   id: text("id").primaryKey().$defaultFn(() => nanoid(10)),
-  userId: text("user_id")
-    .notNull()
-    .references(() => user.id, { onDelete: "cascade" }),
-  url: text("url").notNull(),
-  title: text("title").notNull(),
-  description: text("description"),
-  image: text("image"),
-  createdAt: timestamp("created_at")
-    .$defaultFn(() => /* @__PURE__ */ new Date())
-    .notNull(),
-  updatedAt: timestamp("updated_at")
-    .$defaultFn(() => /* @__PURE__ */ new Date())
-    .notNull(),
+  email: text("email").notNull().unique(), // Unique email for each waitlist
+  createdAt: timestamp("created_at", { withTimezone: true, mode: 'date' }).defaultNow().notNull(),
+  updatedAt: timestamp("updated_at", { withTimezone: true, mode: 'date' }).defaultNow().notNull(),
 });
+
+
+
+// workspace org
+export const workspace = pgTable("workspace", {
+  id: text("id").primaryKey().$defaultFn(() => nanoid(10)),
+  name: text("name").notNull(),
+  slug: text("slug").notNull().unique(), // The unique part of the URL
+  description: text("description").notNull(),
+  userId: text("user_id").notNull().references(() => user.id, { onDelete: "cascade" }),
+  createdAt: timestamp("created_at", { withTimezone: true, mode: 'date' }).defaultNow().notNull(),
+  updatedAt: timestamp("updated_at", { withTimezone: true, mode: 'date' }).defaultNow().notNull(),
+});
+
+
+
 
 
 export const FullSchema = {
@@ -92,4 +84,21 @@ export const FullSchema = {
   session,
   account,
   verification,
+  waitlist,
+  workspace,
 };
+
+
+
+
+
+
+// for the analytics :- https://ga-dev-tools.google/campaign-url-builder/
+/*
+
+THESE SETTING WILL BE USED FOR THE ANALYTICS FOR THE LINKS THAT CONTAINS ALL THE OTHER LINKS IN THAT
+
+use the UTM parameter in order to track the source of the link of the user (liktree) 
+
+and for the IP address :- https://ipapi.co/
+*/
