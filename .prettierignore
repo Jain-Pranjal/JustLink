@@ -1,0 +1,17 @@
+# Common folders
+node_modules
+dist
+build
+.next
+coverage
+
+# Lock file 
+pnpm-lock.yaml
+
+# GitHub and changeset tooling
+.github/
+.changeset/
+
+# Optional ignores
+CHANGELOG.md
+tsconfig.json
