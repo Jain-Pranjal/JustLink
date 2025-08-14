@@ -19,9 +19,9 @@ export default function WaitlistForm() {
     const trpc = useTRPC()
 
     const waitlistCount = useSuspenseQuery(
-        trpc.waitlist.getTotalWaitlistEntries.queryOptions({
-            refetchOnWindowFocus: true,
-            refetchInterval: 1000, // Refetch every 1 second
+        trpc.waitlist.getTotalWaitlistEntries.queryOptions(undefined, {
+            refetchOnWindowFocus: true, // re-run your query whenever the browser tab becomes active again.
+            refetchInterval: 1000,
         })
     )
 

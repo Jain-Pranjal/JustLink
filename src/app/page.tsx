@@ -7,10 +7,7 @@ const page = async () => {
     // fetching initial data for the waitlist count
     const queryClient = getQueryClient()
     void queryClient.prefetchQuery(
-        trpc.waitlist.getTotalWaitlistEntries.queryOptions({
-            refetchOnWindowFocus: true,
-            refetchInterval: 1000,
-        })
+        trpc.waitlist.getTotalWaitlistEntries.queryOptions()
     )
 
     return (
