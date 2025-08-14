@@ -91,6 +91,7 @@ export default function WaitlistForm() {
                             height={40}
                             className="mb-8"
                             priority
+                            draggable={false}
                         />
 
                         {/* Heading */}
@@ -99,7 +100,7 @@ export default function WaitlistForm() {
                                 Join Our Waitlist
                             </h1>
                             <p className="max-w-md text-sm text-gray-300 sm:text-base">
-                                One page to handle all your links
+                                All Your Links, Always in Reach
                             </p>
                         </div>
 
@@ -146,7 +147,8 @@ export default function WaitlistForm() {
                     {/* Footer */}
                     <footer className="flex w-full flex-col items-center justify-between gap-2 bg-gray-800/30 px-6 py-4 text-sm sm:flex-row sm:gap-0 sm:px-8">
                         <p className="text-xs text-gray-400">
-                            © 2025 JustLink. All rights reserved.
+                            © {new Date().getFullYear()} JustLink. All rights
+                            reserved.
                         </p>
                         <div className="flex gap-1">
                             <Link

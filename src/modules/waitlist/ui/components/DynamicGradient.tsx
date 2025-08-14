@@ -5,7 +5,7 @@ import { MeshGradient } from '@paper-design/shaders-react'
 export function DynamicGradient() {
     return (
         <MeshGradient
-            colors={colorSchemes.darkBlue}
+            colors={colorSchemes.dark2}
             speed={0.7}
             style={{
                 position: 'fixed',
@@ -24,6 +24,7 @@ const colorSchemes = {
     ocean: ['#0066cc', '#00d4ff', '#0099ff', '#66ccff'],
     forest: ['#2d5016', '#68b738', '#a8e6cf', '#88d8a3'],
     dark: ['#1a1a2e', '#16213e', '#0f3460', '#533483'],
+    dark2: ['#ff6b6b', '#ebdada', '#DB2941', '#533483'],
     darkPurple: ['#2d1b69', '#11052c', '#3c096c', '#5a189a'],
     darkRed: ['#660708', '#a4161a', '#ba181b', '#e5383b'],
     darkGreen: ['#144552', '#0b525b', '#1a535c', '#4ecdc4'],

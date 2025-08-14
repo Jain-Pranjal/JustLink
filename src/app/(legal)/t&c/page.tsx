@@ -11,6 +11,12 @@ import {
     Document,
     Hyperlink,
 } from '@contentful/rich-text-types'
+import { Exo_2 } from 'next/font/google'
+
+const exo2 = Exo_2({
+    subsets: ['latin'],
+    weight: ['400', '700'],
+})
 
 export const revalidate = 86400 // Revalidate every day automatically
 
@@ -22,7 +28,9 @@ export default async function PrivacyPolicyPage() {
     const options: Options = {
         renderNode: {
             [BLOCKS.HEADING_1]: ((node, children) => (
-                <h1 className="relative mb-12 text-center font-sans text-3xl font-bold text-gray-800">
+                <h1
+                    className={`${exo2.className} relative mb-12 text-center text-3xl font-bold text-gray-800`}
+                >
                     {children}
                     <span className="absolute bottom-[-16px] left-1/2 h-[0.35rem] w-12 -translate-x-1/2 rounded-full bg-blue-600"></span>
                 </h1>

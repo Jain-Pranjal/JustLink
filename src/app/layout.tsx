@@ -10,14 +10,17 @@ const inter = Inter({
     subsets: ['latin'],
 })
 
-// TODO: add the open graph image and other metadata
+const appURL = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
+
+// TODO: add the open graph image and other metadata with real domain
 export const metadata: Metadata = {
+    metadataBase: new URL(appURL),
     title: 'JustLink',
-    description: 'This is an awesome website built with Next.js!',
+    description: 'All Your Links, Always in Reach',
     openGraph: {
         title: 'JustLink',
-        description: 'This is an awesome website built with Next.js!',
-        url: 'https://mywebsite.com',
+        description: 'All Your Links, Always in Reach',
+        url: appURL,
         siteName: 'JustLink',
         images: [
             {
@@ -31,9 +34,9 @@ export const metadata: Metadata = {
         type: 'website',
     },
     twitter: {
-        card: 'summary_large_image', // or 'summary'
+        card: 'summary_large_image',
         title: 'JustLink',
-        description: 'This is an awesome website built with Next.js!',
+        description: 'All Your Links, Always in Reach',
         images: ['/twitter-image.png'],
         creator: '@PranjalJain03',
     },
