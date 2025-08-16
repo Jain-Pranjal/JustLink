@@ -66,7 +66,7 @@ We welcome contributions to **JustLink** and appreciate the effort made by every
 
 ### Open a Pull Request
 
-- Open a pull request to the `master` branch of this repository. Provide a clear description of the changes you’ve made and any additional information.
+- Open a pull request to the `dev` branch of this repository. Provide a clear description of the changes you’ve made and any additional information.
 
 ---
 
@@ -106,4 +106,4 @@ Please be respectful and follow the [Code of Conduct](https://www.contributor-co
 
 ---
 
-Thank you for contributing to Meet AI! Your help is truly appreciated! 🚀
+Thank you for contributing to JustLink! Your help is truly appreciated! 🚀
