@@ -33,10 +33,8 @@ Unlike traditional bio-link tools, Justlink introduces the **Constant Link** fea
 
 ---
 
-## Installation
+For contributing to JustLink, read the [CONTRIBUTING.md](CONTRIBUTING.md) file.
 
-1. **Clone the repository:**
-    ```bash
-    git clone https://github.com/your-username/justlink.git
-    cd justlink
-    ```
+We welcome contributions from the community! Whether it's fixing bugs, adding new features, or improving documentation, your help is greatly appreciated.
+
+For any inquiries or support, please reach out to our team at [support@justlink.com](mailto:support@justlink.com).
