@@ -10,7 +10,7 @@ const RootContainer: FC<Props> = ({ children, className }) => {
     return (
         <div
             className={cn(
-                'container mx-auto mt-5 max-w-[1400px] p-4 sm:p-6 lg:p-6 xl:p-10',
+                'container mx-auto max-w-[1400px] p-4 pt-9 sm:p-6 lg:p-6 xl:p-10',
                 className
             )}
         >
