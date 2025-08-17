@@ -30,7 +30,7 @@ const WaitlistThankYouEmail = (props: WaitlistThankYouEmailProps) => {
                             {/* Logo Section */}
                             <Section className="mb-[32px] text-center">
                                 <Img
-                                    src={`${process.env.NEXT_PUBLIC_APP_URL}/TypoLogo/TypoCircle.svg`}
+                                    src={`${process.env.NEXT_PUBLIC_APP_URL}/TypoLogo/TypoCircle.png`}
                                     alt="JustLink Logo"
                                     width="120"
                                     height="40"
@@ -39,7 +39,7 @@ const WaitlistThankYouEmail = (props: WaitlistThankYouEmailProps) => {
                             </Section>
 
                             <Heading className="mb-[24px] text-center text-[32px] font-bold text-gray-900">
-                                🎉 You&apos;re on the list!
+                                📣 You&apos;re on the list!
                             </Heading>
 
                             <Text className="mb-[24px] text-[18px] leading-[28px] text-gray-700">

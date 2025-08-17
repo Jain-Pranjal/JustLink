@@ -34,7 +34,7 @@ export const waitlistRouter = createTRPCRouter({
             //   Send confirmation email
             try {
                 await resend.emails.send({
-                    from: `${process.env.EMAIL_SENDER_NAME} <${process.env.EMAIL_WAITLIST_SENDER_ADDRESS}>`, //TODO: change the email to waitlist@yourdomain.com
+                    from: `${process.env.EMAIL_SENDER_NAME} <${process.env.EMAIL_WAITLIST_SENDER_ADDRESS}>`,
                     to: input.email,
                     subject: '🎉 Welcome to the JustLink Waitlist!',
                     react: WaitlistThankYouEmail({ email: input.email }),
