@@ -1,9 +1,9 @@
 ## JustLink
 
-Justlink is a modern web platform that allows users to **share all their important links in one place**.  
+JustLink is a modern web platform that allows users to **share all their important links in one place**.  
 It’s built for creators, influencers, businesses, and individuals who want a **customizable profile page** where they can showcase their social media, websites, and other online resources with ease.
 
-Unlike traditional bio-link tools, Justlink introduces the **Constant Link** feature — a short link that **always stays the same**, but can be updated by the user to redirect visitors to different URLs without ever changing the original link.
+Unlike traditional bio-link tools, JustLink introduces the **Constant Link** feature — a short link that **always stays the same**, but can be updated by the user to redirect visitors to different URLs without ever changing the original link.
 
 ---
 

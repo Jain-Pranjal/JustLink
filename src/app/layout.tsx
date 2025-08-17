@@ -3,6 +3,8 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import { Toaster } from '@/components/ui/sonner'
 import { TRPCReactProvider } from '@/trpc/client'
+import { constructMetadata } from '@/lib/utils'
+import { Analytics } from '@vercel/analytics/next'
 // import { NuqsAdapter } from 'nuqs/adapters/next/app'
 
 const inter = Inter({
@@ -10,37 +12,7 @@ const inter = Inter({
     subsets: ['latin'],
 })
 
-const appURL = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
-
-// TODO: add the open graph image and other metadata with real domain
-export const metadata: Metadata = {
-    metadataBase: new URL(appURL),
-    title: 'JustLink',
-    description: 'All Your Links, Always in Reach',
-    openGraph: {
-        title: 'JustLink',
-        description: 'All Your Links, Always in Reach',
-        url: appURL,
-        siteName: 'JustLink',
-        images: [
-            {
-                url: '/opengraph-image.png',
-                width: 1200,
-                height: 630,
-                alt: 'OpenGraph Image',
-            },
-        ],
-        locale: 'en_US',
-        type: 'website',
-    },
-    twitter: {
-        card: 'summary_large_image',
-        title: 'JustLink',
-        description: 'All Your Links, Always in Reach',
-        images: ['/twitter-image.png'],
-        creator: '@PranjalJain03',
-    },
-}
+export const metadata: Metadata = constructMetadata()
 
 export default function RootLayout({
     children,
@@ -50,10 +22,11 @@ export default function RootLayout({
     return (
         // <NuqsAdapter>
         <TRPCReactProvider>
-            <html lang="en">
+            <html lang="en" suppressHydrationWarning>
                 <body className={`${inter.className} antialiased`}>
                     <Toaster />
                     {children}
+                    <Analytics />
                 </body>
             </html>
         </TRPCReactProvider>
