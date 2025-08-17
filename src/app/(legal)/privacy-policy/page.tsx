@@ -24,7 +24,6 @@ export default async function PrivacyPolicyPage() {
     const page = await getContentBySlug('privacy-policy')
     if (!page) return <div>Not found</div>
 
-    // Instead of forcing Block/Inline types here, use NodeRenderer which matches what Options expects
     const options: Options = {
         renderNode: {
             [BLOCKS.HEADING_1]: ((node, children) => (
@@ -69,7 +68,7 @@ export default async function PrivacyPolicyPage() {
             )) as NodeRenderer,
 
             [INLINES.HYPERLINK]: ((node, children) => {
-                const hyperlinkNode = node as Hyperlink // Narrowing for uri
+                const hyperlinkNode = node as Hyperlink
                 return (
                     <a
                         href={hyperlinkNode.data.uri}
@@ -85,7 +84,7 @@ export default async function PrivacyPolicyPage() {
     }
 
     return (
-        <RootContainer className="bg-gray-900/95">
+        <RootContainer className="w-screen max-w-none bg-gray-900/95">
             <main>
                 <div className="xl:m-12 xl:px-4">
                     {page.fields.content &&
