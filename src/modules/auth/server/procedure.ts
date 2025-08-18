@@ -14,7 +14,7 @@ export const authRouter = createTRPCRouter({
                 email: z.string().email('Invalid email address'),
             })
         )
-        .query(async ({ input }) => {
+        .mutation(async ({ input }) => {
             const email = input.email.toLowerCase()
             const [userByEmail] = await db
                 .select()

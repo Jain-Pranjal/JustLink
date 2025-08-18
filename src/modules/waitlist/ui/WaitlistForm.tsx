@@ -1,7 +1,11 @@
 'use client'
 import { DynamicGradient } from '@/modules/waitlist/ui/components/DynamicGradient'
 import { useTRPC } from '@/trpc/client'
-import { useMutation, useSuspenseQuery } from '@tanstack/react-query'
+import {
+    useMutation,
+    useSuspenseQuery,
+    useQueryClient,
+} from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -17,20 +21,24 @@ const waitlistSchema = z.object({
 
 export default function WaitlistForm() {
     const trpc = useTRPC()
+    const queryClient = useQueryClient()
 
     const waitlistCount = useSuspenseQuery(
         trpc.waitlist.getTotalWaitlistEntries.queryOptions(undefined, {
             refetchOnWindowFocus: true, // re-run your query whenever the browser tab becomes active again.
             refetchInterval: 30000, //30 sec
-            staleTime: 25000, // Data is fresh for 25 seconds
+            staleTime: 3000, // Data is fresh for 3 seconds
             gcTime: 60000, // cache for 1 minute
         })
     )
 
     const createWaitlistEntry = useMutation(
         trpc.waitlist.create.mutationOptions({
-            onSuccess: () => {
+            onSuccess: async () => {
                 toast.success('Successfully joined the waitlist!')
+                await queryClient.invalidateQueries(
+                    trpc.waitlist.getTotalWaitlistEntries.queryOptions()
+                ) //invalidating it triggers an immediate refetch
                 form.reset()
             },
             onError: (error) => {
@@ -53,12 +61,6 @@ export default function WaitlistForm() {
         }
 
         createWaitlistEntry.mutate(values)
-
-        // confetti({
-        //     particleCount: 100,
-        //     spread: 70,
-        //     origin: { y: 0.6 }
-        // });
     }
 
     // Handle input changes and trigger validation
