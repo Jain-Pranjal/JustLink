@@ -14,7 +14,7 @@
         "start": "next start",
         "lint": "next lint",
         "rebase": "git pull && git checkout staging && git pull && git rebase dev && git push && git checkout dev",
-        "rebase:main": "git pull && git checkout master && git pull && git rebase dev && git push && git checkout dev",
+        "rebase:main": "git pull && git checkout master && git pull && git rebase staging && git push && git checkout dev",
         "db:push": "npx drizzle-kit push",
         "db:studio": "npx drizzle-kit studio",
         "format": "prettier --write \"**/*.{ts,js,jsx,tsx,md}\"",
