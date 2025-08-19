@@ -110,7 +110,7 @@ const SignupView = () => {
         authClient.signIn.social(
             {
                 provider: provider,
-                callbackURL: '/?social_signin=true',
+                callbackURL: '/?social_signin=true', //TODO: neeed to reforect to app.justlink.live (dashboard)
             },
             {
                 onRequest: () => {

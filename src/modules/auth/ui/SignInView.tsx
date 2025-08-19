@@ -48,7 +48,7 @@ const SigninView = () => {
     // One Tap Auto-trigger
     useEffect(() => {
         if (session) {
-            router.replace('/') // already signed in
+            router.replace('/') // already signed in. TODO: change to app.justlink.live (dashboard)
             return
         }
 
@@ -178,8 +178,8 @@ const SigninView = () => {
         authClient.signIn.social(
             {
                 provider: provider,
-                callbackURL: '/?social_signin=true',
-                // callbackURL: "http://localhost:3000/api/auth/callback/twitter", //TODO cahnge the callback url of all the social providers
+                callbackURL: '/?social_signin=true', //TODO: neeed to reforect to app.justlink.live (dashboard)
+                // callbackURL: "http://localhost:3000/api/auth/callback/twitter", //TODO cahnge the callback url of all the social providers on the portal itself
             },
             {
                 onRequest: () => {
