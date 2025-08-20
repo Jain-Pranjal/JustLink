@@ -44,11 +44,6 @@ export function NavbarDemo() {
                                 Sign in
                             </NavbarButton>
                         </Link>
-                        <Link href="/book-a-call">
-                            <NavbarButton variant="primary">
-                                Book a call
-                            </NavbarButton>
-                        </Link>
                     </div>
                 </NavBody>
 
@@ -85,13 +80,6 @@ export function NavbarDemo() {
                                 className="w-full"
                             >
                                 Sign in
-                            </NavbarButton>
-                            <NavbarButton
-                                onClick={() => setIsMobileMenuOpen(false)}
-                                variant="primary"
-                                className="w-full"
-                            >
-                                Book a call
                             </NavbarButton>
                         </div>
                     </MobileNavMenu>
