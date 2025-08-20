@@ -21,39 +21,8 @@ export const faqData = [
     },
 ]
 
-export const QuoteWords = [
-    'Why',
-    'did',
-    'the',
-    'developer',
-    'go',
-    'broke?',
-    'Because',
-    'he',
-    'used',
-    'up',
-    'all',
-    'his',
-    'cache!',
-    'Programming',
-    'is',
-    'like',
-    'sex:',
-    'One',
-    'mistake',
-    'and',
-    'you',
-    'have',
-    'to',
-    'support',
-    'it',
-    'for',
-    'the',
-    'rest',
-    'of',
-    'your',
-    'life.',
-]
+export const QuoteWords =
+    'Why did the developer go broke? Because he used up all his cache! Programming is like sex: One mistake and you have to support it for the rest of your life.'
 
 export const socials = {
     twitter: {
