@@ -21,7 +21,7 @@ export const auth = betterAuth({
 
         sendResetPassword: async ({ user, url }) => {
             await resend.emails.send({
-                from: `${process.env.EMAIL_SENDER_NAME} <${process.env.EMAIL_SENDER_ADDRESS}>`,
+                from: `${process.env.EMAIL_SENDER_NAME} <${process.env.EMAIL_NO_REPLY}>`,
                 to: user.email,
                 subject: 'Reset your password',
                 react: ForgotPasswordEmail({
@@ -36,7 +36,7 @@ export const auth = betterAuth({
         // Send the confirmation mail after the passwd reset
         onPasswordReset: async ({ user }) => {
             await resend.emails.send({
-                from: `${process.env.EMAIL_SENDER_NAME} <${process.env.EMAIL_SENDER_ADDRESS}>`,
+                from: `${process.env.EMAIL_SENDER_NAME} <${process.env.EMAIL_NO_REPLY}>`,
                 to: user.email,
                 subject: 'Your password has been reset',
                 react: PasswordResetConfirmation({
@@ -50,7 +50,7 @@ export const auth = betterAuth({
     emailVerification: {
         sendVerificationEmail: async ({ user, url }) => {
             await resend.emails.send({
-                from: `${process.env.EMAIL_SENDER_NAME} <${process.env.EMAIL_SENDER_ADDRESS}>`,
+                from: `${process.env.EMAIL_SENDER_NAME} <${process.env.EMAIL_NO_REPLY}>`,
                 to: user.email,
                 subject: 'Verify your email',
                 react: VerifyEmail({ username: user.name, verifyUrl: url }),
