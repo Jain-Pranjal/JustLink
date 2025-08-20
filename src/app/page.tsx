@@ -1,7 +1,7 @@
 import React from 'react'
-import WaitlistForm from '@/modules/waitlist/ui/WaitlistForm'
 import { getQueryClient, trpc } from '@/trpc/server'
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
+import Hero from '@/modules/landing/ui/views/Hero'
 
 const page = async () => {
     // fetching initial data for the waitlist count
@@ -12,13 +12,11 @@ const page = async () => {
 
     return (
         <HydrationBoundary state={dehydrate(queryClient)}>
-            <WaitlistForm />
+            <Hero />
         </HydrationBoundary>
     )
 }
 
 export default page
-
-// This is the / page of the application.
 
 // TODO: after waitlist need to add the logic to open via proper session checking and email verification
