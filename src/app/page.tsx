@@ -1,7 +1,7 @@
 import React from 'react'
 import { getQueryClient, trpc } from '@/trpc/server'
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
-import Hero from '@/modules/landing/ui/views/Hero'
+import LandingPage from '@/modules/landing/ui/views/LandingPage'
 
 const page = async () => {
     // fetching initial data for the waitlist count
@@ -12,7 +12,7 @@ const page = async () => {
 
     return (
         <HydrationBoundary state={dehydrate(queryClient)}>
-            <Hero />
+            <LandingPage />
         </HydrationBoundary>
     )
 }
