@@ -14,15 +14,17 @@ const Footer = () => {
 
                     {/* Logo top-left */}
                     <div className="relative z-10 flex items-center p-4 text-white sm:p-5">
-                        <Image
+                        {/* <Image
                             src="/TypoLogo/TypoCircle.svg"
                             alt="JustLink app logo"
                             className="mr-3 h-5 w-auto sm:h-6"
                             width={24}
                             height={24}
                             draggable={false}
-                        />
+                        /> */}
                     </div>
+
+                    {/* TODO: fix the relative position for social  */}
 
                     {/* Social bar */}
                     <div className="relative z-10 flex w-full justify-center gap-6 bg-black/70 py-3 backdrop-blur-sm">
