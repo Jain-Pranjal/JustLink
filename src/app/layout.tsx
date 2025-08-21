@@ -6,7 +6,6 @@ import { TRPCReactProvider } from '@/trpc/client'
 import { constructMetadata } from '@/lib/utils'
 import { Analytics } from '@vercel/analytics/next'
 // import { NuqsAdapter } from 'nuqs/adapters/next/app'
-import { NavbarDemo } from '@/components/global/Navbar'
 
 const inter = Inter({
     variable: '--font-inter',
@@ -26,7 +25,6 @@ export default function RootLayout({
             <html lang="en" suppressHydrationWarning>
                 <body className={`${inter.className} antialiased`}>
                     <Toaster />
-                    <NavbarDemo />
                     {children}
                     <Analytics />
                 </body>

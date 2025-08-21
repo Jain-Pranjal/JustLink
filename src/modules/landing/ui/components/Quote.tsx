@@ -12,7 +12,7 @@ const Quote = () => {
                 <div>
                     <TextGenerateEffect
                         words={QuoteWords}
-                        className="text-primary text-2xl font-bold sm:text-3xl md:text-5xl lg:text-6xl"
+                        className="text-2xl font-bold text-[#e5e3df] sm:text-3xl md:text-5xl lg:text-6xl"
                     />
                 </div>
             </div>

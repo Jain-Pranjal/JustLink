@@ -13,7 +13,7 @@ import {
 import { useState } from 'react'
 import Link from 'next/link'
 
-export function NavbarDemo() {
+export function GlobalNavbar() {
     const navItems = [
         {
             name: 'Features',
