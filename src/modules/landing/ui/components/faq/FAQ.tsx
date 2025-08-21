@@ -31,15 +31,17 @@ const FAQ = () => {
                         <Link
                             href="#"
                             target="_blank"
-                            className="text-black-450 my-5 mt-8 flex cursor-pointer gap-1"
+                            className="text-black-450 my-5 mt-8 flex w-fit cursor-pointer items-center gap-1 hover:underline"
                         >
-                            <p className="text-black-450">Explore More FAQs</p>
+                            <span className="text-black-450">
+                                Explore More FAQs
+                            </span>
                             <MdArrowOutward />
                         </Link>
 
                         <div
                             onClick={() => setContactUsPopupVisible(true)}
-                            className="text-black-450 flex cursor-pointer gap-1"
+                            className="text-black-450 flex w-fit cursor-pointer items-center gap-1 hover:underline"
                         >
                             <p className="text-black-450">
                                 Need Help? Contact Us

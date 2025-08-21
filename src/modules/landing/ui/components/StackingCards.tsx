@@ -94,7 +94,7 @@ const StackingCards = () => {
     return (
         <div ref={sectionRef} className="relative" style={{ height: '300vh' }}>
             <section
-                className="sticky top-0 h-screen w-full overflow-hidden bg-black py-10 md:py-16"
+                className="sticky top-0 h-screen w-full overflow-hidden bg-[#090A0A] py-10 md:py-16"
                 id="why-justlink"
             >
                 <div className="container mx-auto flex h-full flex-col px-6 lg:px-8">
@@ -130,6 +130,9 @@ const StackingCards = () => {
                                 zIndex: 10,
                                 transform: `translateY(${isFirstCardVisible ? '90px' : '200px'}) scale(0.9)`,
                                 opacity: isFirstCardVisible ? 0.9 : 0,
+                                backgroundImage: 'url("/gradients/grad1.svg")',
+                                backgroundSize: 'cover',
+                                backgroundPosition: 'center',
                             }}
                         >
                             <div className="absolute top-4 right-4 z-20">
@@ -161,6 +164,9 @@ const StackingCards = () => {
                                 pointerEvents: isSecondCardVisible
                                     ? 'auto'
                                     : 'none',
+                                backgroundImage: 'url("/gradients/grad2.svg")',
+                                backgroundSize: 'cover',
+                                backgroundPosition: 'center',
                             }}
                         >
                             <div className="absolute top-4 right-4 z-20">
@@ -192,6 +198,9 @@ const StackingCards = () => {
                                 pointerEvents: isThirdCardVisible
                                     ? 'auto'
                                     : 'none',
+                                backgroundImage: 'url("/gradients/grad3.svg")',
+                                backgroundSize: 'cover',
+                                backgroundPosition: 'center',
                             }}
                         >
                             <div className="absolute top-4 right-4 z-20">

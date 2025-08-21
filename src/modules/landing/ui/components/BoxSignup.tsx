@@ -21,12 +21,12 @@ const BoxSignup = () => {
                             <div className="flex min-w-0 flex-1 items-center">
                                 <span className="px-4 text-sm whitespace-nowrap text-gray-500">
                                     justlink.live/
+                                    <input
+                                        type="text"
+                                        placeholder="yourname"
+                                        className="w-full min-w-0 border-none bg-transparent px-0 py-3 text-sm text-black placeholder-gray-500 outline-none dark:text-white"
+                                    />
                                 </span>
-                                <input
-                                    type="text"
-                                    placeholder="yourname"
-                                    className="w-full min-w-0 border-none bg-transparent px-0 py-3 text-sm text-black placeholder-gray-500 outline-none dark:text-white"
-                                />
                             </div>
                             <button className="bg-black px-6 py-3 text-sm font-medium whitespace-nowrap text-white transition-colors hover:bg-black/80 sm:border-l sm:border-black dark:bg-white dark:text-black dark:hover:bg-white/80 dark:sm:border-white">
                                 Claim your page
