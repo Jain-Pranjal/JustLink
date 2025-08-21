@@ -15,7 +15,7 @@ export function constructMetadata(): Metadata {
         manifest: '/manifest.json',
         title: {
             default: 'JustLink',
-            template: 'JustLink | %s', //TODO: change the dynamic title
+            template: 'JustLink | %s',
         },
         description:
             'One link, endless possibilities. The easiest way to collect and organize links into one page for creators, professionals, and businesses.',

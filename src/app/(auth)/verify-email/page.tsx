@@ -3,6 +3,29 @@ import { auth } from '@/lib/auth' //server instance of auth
 import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 import ReEmailVerificationForm from '@/modules/auth/ui/ReEmailVerificationForm'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+    title: 'Verify Email',
+    description:
+        'Please verify your email address to activate your JustLink account. A confirmation link has been sent to your inbox. Secure your account and get started now.',
+    openGraph: {
+        title: 'JustLink | Verify Email',
+        description:
+            'Please verify your email address to activate your JustLink account. A confirmation link has been sent to your inbox. Secure your account and get started now.',
+        url: 'https://justlink.live/verify-email',
+        siteName: 'JustLink',
+        locale: 'en_US',
+        type: 'website',
+    },
+    twitter: {
+        title: 'JustLink | Verify Email',
+        description:
+            'Please verify your email address to activate your JustLink account. A confirmation link has been sent to your inbox. Secure your account and get started now.',
+        card: 'summary_large_image',
+        site: 'https://justlink.live',
+    },
+}
 
 async function VerifyEmail() {
     const session = await auth.api.getSession({

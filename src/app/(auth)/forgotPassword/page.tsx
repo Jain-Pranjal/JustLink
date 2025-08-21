@@ -3,6 +3,29 @@ import { auth } from '@/lib/auth' //server instance of auth
 import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 import ForgotPasswordForm from '@/modules/auth/ui/ForgetPasswordForm'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+    title: 'Forgot Password',
+    description:
+        'Reset your JustLink password quickly and securely. Enter your registered email to get a password reset link.',
+    openGraph: {
+        title: 'JustLink | Forgot Password',
+        description:
+            'Reset your JustLink password quickly and securely. Enter your registered email to get a password reset link.',
+        url: 'https://justlink.live/forgotPassword',
+        siteName: 'JustLink',
+        locale: 'en_US',
+        type: 'website',
+    },
+    twitter: {
+        title: 'JustLink | Forgot Password',
+        description:
+            'Reset your JustLink password quickly and securely. Enter your registered email to get a password reset link.',
+        card: 'summary_large_image',
+        site: 'https://justlink.live',
+    },
+}
 
 async function ForgotPassword() {
     const session = await auth.api.getSession({

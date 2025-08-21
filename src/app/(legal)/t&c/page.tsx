@@ -12,6 +12,7 @@ import {
     Hyperlink,
 } from '@contentful/rich-text-types'
 import { Exo_2 } from 'next/font/google'
+import { Metadata } from 'next'
 
 const exo2 = Exo_2({
     subsets: ['latin'],
@@ -19,6 +20,28 @@ const exo2 = Exo_2({
 })
 
 export const revalidate = 86400 // Revalidate every day automatically
+
+export const metadata: Metadata = {
+    title: 'Terms and Conditions',
+    description:
+        'JustLink is committed to providing a transparent and secure experience. These Terms and Conditions outline the rules and guidelines for using our platform.',
+    openGraph: {
+        title: 'JustLink | Terms and Conditions',
+        description:
+            'JustLink is committed to providing a transparent and secure experience. These Terms and Conditions outline the rules and guidelines for using our platform.',
+        url: 'https://justlink.live/t&c',
+        siteName: 'JustLink',
+        locale: 'en_US',
+        type: 'website',
+    },
+    twitter: {
+        title: 'JustLink | Terms and Conditions',
+        description:
+            'JustLink is committed to providing a transparent and secure experience. These Terms and Conditions outline the rules and guidelines for using our platform.',
+        card: 'summary_large_image',
+        site: 'https://justlink.live',
+    },
+}
 
 export default async function TandCPage() {
     const page = await getContentBySlug('terms-and-conditions')
