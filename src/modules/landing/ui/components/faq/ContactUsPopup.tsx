@@ -11,13 +11,6 @@ import {
 } from '@/components/ui/alert-dialog'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
 // import { contactUsAction } from '@/server/actions/contact'
 
@@ -78,15 +71,15 @@ const ContactUsPopup: FC<Props> = ({ open, setOpen }) => {
             <AlertDialogContent className="max-w-[30rem] rounded-2xl border border-[#2A2A2A]/20 bg-gradient-to-t from-[#111111] via-[#1C1C1C] to-[#1C1C1C] max-lg:top-auto max-lg:bottom-0 max-lg:translate-y-[0%] max-lg:rounded-t-2xl">
                 <AlertDialogTitle></AlertDialogTitle>
                 <AlertDialogCancel className="absolute top-1 right-1 w-fit border-none bg-transparent">
-                    <X className="text-white-100" />
+                    <X className="text-white" />
                 </AlertDialogCancel>
 
                 <div>
                     <div className="text-center">
-                        <h1 className="text-white-100 text-2xl font-semibold">
+                        <h1 className="text-2xl font-semibold text-white">
                             Contact Us
                         </h1>
-                        <p className="text-black-450 my-2 font-medium">
+                        <p className="my-2 font-medium text-white">
                             Need assistance, we are here to help
                         </p>
                     </div>
@@ -95,7 +88,7 @@ const ContactUsPopup: FC<Props> = ({ open, setOpen }) => {
                         className="mt-8 flex flex-col gap-3"
                     >
                         <Input
-                            className="text-white-100 border-[#343434] bg-[#262626] py-6 text-base font-medium placeholder:text-[#888888]"
+                            className="border-[#343434] bg-[#262626] py-6 text-base font-medium text-[#e5e3df] placeholder:text-[#888888]"
                             value={formData.first_name}
                             onChange={handleChange}
                             required
@@ -103,7 +96,7 @@ const ContactUsPopup: FC<Props> = ({ open, setOpen }) => {
                             placeholder="First Name *"
                         />
                         <Input
-                            className="text-white-100 border-[#343434] bg-[#262626] py-6 text-base font-medium placeholder:text-[#888888]"
+                            className="border-[#343434] bg-[#262626] py-6 text-base font-medium text-[#e5e3df] placeholder:text-[#888888]"
                             value={formData.last_name}
                             onChange={handleChange}
                             required
@@ -111,7 +104,7 @@ const ContactUsPopup: FC<Props> = ({ open, setOpen }) => {
                             placeholder="Last Name *"
                         />
                         <Input
-                            className="text-white-100 border-[#343434] bg-[#262626] py-6 text-base font-medium placeholder:text-[#888888]"
+                            className="border-[#343434] bg-[#262626] py-6 text-base font-medium text-[#e5e3df] placeholder:text-[#888888]"
                             value={formData.email}
                             onChange={handleChange}
                             type="email"
@@ -120,78 +113,17 @@ const ContactUsPopup: FC<Props> = ({ open, setOpen }) => {
                             name="email"
                         />
                         <Input
-                            className="text-white-100 border-[#343434] bg-[#262626] py-6 text-base font-medium placeholder:text-[#888888]"
+                            className="border-[#343434] bg-[#262626] py-6 text-base font-medium text-[#e5e3df] placeholder:text-[#888888]"
                             name="phone"
                             value={formData.phone}
                             onChange={handleChange}
                             placeholder="Phone"
                         />
 
-                        <Select
-                            required
-                            value={formData.product}
-                            onValueChange={(e) =>
-                                setFormData({ ...formData, product: e })
-                            }
-                        >
-                            <SelectTrigger className="text-white-100 border-[#343434] bg-[#262626] py-6">
-                                <SelectValue placeholder="Product *" />
-                            </SelectTrigger>
-                            <SelectContent className="text-white-100 border-[#343434] bg-[#262626]">
-                                <SelectItem value="ZTLN">ZTLN</SelectItem>
-                                <SelectItem value="ZSTF">ZSTF</SelectItem>
-                            </SelectContent>
-                        </Select>
-
-                        <Select
-                            required
-                            value={formData.reason}
-                            onValueChange={(e) =>
-                                setFormData({ ...formData, reason: e })
-                            }
-                        >
-                            <SelectTrigger className="text-white-100 border-[#343434] bg-[#262626] py-6">
-                                <SelectValue placeholder="Category *" />
-                            </SelectTrigger>
-                            <SelectContent className="text-white-100 border-[#343434] bg-[#262626]">
-                                <SelectItem value="Investment">
-                                    {' '}
-                                    Investment
-                                </SelectItem>
-                                <SelectItem value="Partnerships">
-                                    Partnerships{' '}
-                                </SelectItem>
-                                <SelectItem value="Career Interest">
-                                    Career Interest{' '}
-                                </SelectItem>
-                                <SelectItem value="General Inquiry">
-                                    General Inquiry{' '}
-                                </SelectItem>
-                                <SelectItem value="Media Inquiry">
-                                    Media Inquiry{' '}
-                                </SelectItem>
-                                <SelectItem value="Onboarding">
-                                    Onboarding{' '}
-                                </SelectItem>
-                                <SelectItem value="OnbSales Inquriyoarding">
-                                    Sales Inquriy{' '}
-                                </SelectItem>
-                                <SelectItem value="Technical Inquiry">
-                                    Technical Inquiry{' '}
-                                </SelectItem>
-                                <SelectItem value="VC Investment">
-                                    VC Investment{' '}
-                                </SelectItem>
-                                <SelectItem value="Feedback and suggestions">
-                                    Feedback and suggestions
-                                </SelectItem>
-                            </SelectContent>
-                        </Select>
-
                         <Textarea
                             required
                             placeholder="Message*"
-                            className="text-white-100 h-32 w-full resize-none border-[#343434] bg-[#262626] py-6 text-base font-medium placeholder:text-[#888888]"
+                            className="h-32 w-full resize-none border-[#343434] bg-[#262626] py-6 text-base font-medium text-[#e5e3df] placeholder:text-[#888888]"
                             name="message"
                             onChange={(e) =>
                                 setFormData({

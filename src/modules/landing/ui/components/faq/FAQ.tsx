@@ -18,11 +18,11 @@ const FAQ = () => {
     const [open, setOpen] = useState(-1)
 
     return (
-        <div className="bg-[#fff] py-14 lg:py-28">
+        <div className="py-14 lg:py-28">
             <RootContainer>
                 <div className="mx-4 flex flex-col justify-between lg:flex-row">
                     <div>
-                        <div className="font-syne text-white-100 text-4xl font-medium">
+                        <div className="font-syne text-4xl font-medium text-[#e5e3df]">
                             <h1>
                                 {/* Got Any <GradiantText>Questions</GradiantText>? */}
                             </h1>
@@ -31,9 +31,9 @@ const FAQ = () => {
                         <Link
                             href="#"
                             target="_blank"
-                            className="text-black-450 my-5 mt-8 flex w-fit cursor-pointer items-center gap-1 hover:underline"
+                            className="my-5 mt-8 flex w-fit cursor-pointer items-center gap-1 text-[#e5e3df] hover:underline"
                         >
-                            <span className="text-black-450">
+                            <span className="text-[#e5e3df]">
                                 Explore More FAQs
                             </span>
                             <MdArrowOutward />
@@ -41,9 +41,9 @@ const FAQ = () => {
 
                         <div
                             onClick={() => setContactUsPopupVisible(true)}
-                            className="text-black-450 flex w-fit cursor-pointer items-center gap-1 hover:underline"
+                            className="flex w-fit cursor-pointer items-center gap-1 text-[#e5e3df] hover:underline"
                         >
-                            <p className="text-black-450">
+                            <p className="text-[#e5e3df]">
                                 Need Help? Contact Us
                             </p>
                             <MdArrowOutward />
