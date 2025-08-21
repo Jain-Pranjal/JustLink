@@ -84,7 +84,7 @@ export default async function TandCPage() {
     }
 
     return (
-        <RootContainer className="w-screen max-w-none bg-gray-900/95">
+        <RootContainer className="w-screen max-w-none bg-[#090A0A] text-[#E5E3DF]">
             <main>
                 <div className="xl:m-12 xl:px-4">
                     {page.fields.content &&
