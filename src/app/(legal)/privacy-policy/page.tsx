@@ -108,7 +108,7 @@ export default async function PrivacyPolicyPage() {
 
     return (
         <RootContainer className="w-screen max-w-none bg-[#090A0A] text-[#E5E3DF]">
-            <main>
+            <main className="mt-16">
                 <div className="xl:m-12 xl:px-4">
                     {page.fields.content &&
                     typeof page.fields.content === 'object' &&

@@ -99,21 +99,9 @@ const StackingCards = () => {
             >
                 <div className="container mx-auto flex h-full flex-col px-6 lg:px-8">
                     <div className="mb-2 md:mb-3">
-                        <div className="mb-2 flex items-center gap-4 pt-8 sm:pt-6 md:mb-2 md:pt-4">
-                            <div
-                                className="bg-pulse-100 text-pulse-600 border-pulse-200 animate-fade-in inline-flex items-center rounded-full border px-3 py-1 text-xs font-medium opacity-0"
-                                style={{
-                                    animationDelay: '0.1s',
-                                }}
-                            >
-                                <span className="mr-2 inline-flex h-5 w-5 items-center justify-center rounded-full text-white">
-                                    02
-                                </span>
-                                <span className="text-white">JustLink</span>
-                            </div>
-                        </div>
+                        <div className="mb-2 flex items-center gap-4 pt-8 sm:pt-6 md:mb-2 md:pt-4"></div>
 
-                        <h2 className="section-title font-display mb-1 text-3xl font-bold text-white sm:text-4xl md:mb-2 md:text-5xl">
+                        <h2 className="section-title font-display mb-1 text-3xl font-bold text-white max-md:mt-6 sm:text-4xl md:mb-2 md:text-5xl">
                             Why JustLink
                         </h2>
                     </div>

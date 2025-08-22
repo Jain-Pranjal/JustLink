@@ -70,7 +70,7 @@ const ContactUsPopup: FC<Props> = ({ open, setOpen }) => {
         <AlertDialog open={open} onOpenChange={setOpen}>
             <AlertDialogContent className="max-w-[30rem] rounded-2xl border border-[#2A2A2A]/20 bg-gradient-to-t from-[#111111] via-[#1C1C1C] to-[#1C1C1C] max-lg:top-auto max-lg:bottom-0 max-lg:translate-y-[0%] max-lg:rounded-t-2xl">
                 <AlertDialogTitle></AlertDialogTitle>
-                <AlertDialogCancel className="absolute top-1 right-1 w-fit border-none bg-transparent hover:bg-transparent">
+                <AlertDialogCancel className="absolute top-1 right-1 w-fit cursor-pointer border-none bg-transparent hover:bg-[#090a0a]">
                     <X className="text-white" />
                 </AlertDialogCancel>
 
@@ -139,7 +139,7 @@ const ContactUsPopup: FC<Props> = ({ open, setOpen }) => {
                             type="submit"
                             size={'lg'}
                             variant={'default'}
-                            className="mt-5 rounded-full"
+                            className="mt-5 cursor-pointer rounded-full hover:bg-[#090a0a]"
                         >
                             Submit
                         </Button>

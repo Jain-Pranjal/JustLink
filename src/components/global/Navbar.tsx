@@ -72,13 +72,15 @@ export function GlobalNavbar() {
                             </Link>
                         ))}
                         <div className="flex w-full flex-col gap-4">
-                            <NavbarButton
-                                onClick={() => setIsMobileMenuOpen(false)}
-                                variant="primary"
-                                className="w-full"
-                            >
-                                Sign in
-                            </NavbarButton>
+                            <Link href="/sign-in">
+                                <NavbarButton
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                    variant="primary"
+                                    className="w-full"
+                                >
+                                    Sign in
+                                </NavbarButton>
+                            </Link>
                         </div>
                     </MobileNavMenu>
                 </MobileNav>
