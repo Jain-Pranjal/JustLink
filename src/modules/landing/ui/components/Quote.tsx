@@ -7,7 +7,7 @@ import { TextGenerateEffect } from '@/components/ui/text-generate-effect'
 
 const Quote = () => {
     return (
-        <RootContainer className="pb-12 text-center text-4xl font-medium md:pt-28 md:pb-32 md:text-6xl md:leading-[85px]">
+        <RootContainer className="px-6 lg:px-8">
             <div className="container mb-12 max-w-[1370px] pb-12 text-center text-4xl font-medium md:pt-28 md:pb-32 md:text-6xl md:leading-[85px]">
                 <div>
                     <TextGenerateEffect

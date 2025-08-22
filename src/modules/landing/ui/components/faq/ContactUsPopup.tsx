@@ -70,7 +70,7 @@ const ContactUsPopup: FC<Props> = ({ open, setOpen }) => {
         <AlertDialog open={open} onOpenChange={setOpen}>
             <AlertDialogContent className="max-w-[30rem] rounded-2xl border border-[#2A2A2A]/20 bg-gradient-to-t from-[#111111] via-[#1C1C1C] to-[#1C1C1C] max-lg:top-auto max-lg:bottom-0 max-lg:translate-y-[0%] max-lg:rounded-t-2xl">
                 <AlertDialogTitle></AlertDialogTitle>
-                <AlertDialogCancel className="absolute top-1 right-1 w-fit border-none bg-transparent">
+                <AlertDialogCancel className="absolute top-1 right-1 w-fit border-none bg-transparent hover:bg-transparent">
                     <X className="text-white" />
                 </AlertDialogCancel>
 
