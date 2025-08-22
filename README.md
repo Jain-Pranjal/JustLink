@@ -1,13 +1,28 @@
-## JustLink
+<div align="center"> 
+    <a href="https://github.com/Jain-Pranjal/JustLink">
+        <img src="public/opengraph-image.png" alt="JustLink Banner">
+    </a>
+    <br />
+    <p align="center">
+    All your links, Always in reach.
+    <br />
+    <a href="https://justlink.live">Website</a>
+    ·
+    <a href="https://github.com/Jain-Pranjal/JustLink/issues">Feedback</a>
+    ·
+    <a href="mailto:support@justlink.live">Support</a>
+  </p>
+</div>
 
-JustLink is a modern web platform that allows users to **share all their important links in one place**.  
-It’s built for creators, influencers, businesses, and individuals who want a **customizable profile page** where they can showcase their social media, websites, and other online resources with ease.
+---
+
+JustLink is built for creators, influencers, businesses, and individuals who want a **customizable profile page** where they can showcase their social media, websites, and other online resources with ease.
 
 Unlike traditional bio-link tools, JustLink introduces the **Constant Link** feature — a short link that **always stays the same**, but can be updated by the user to redirect visitors to different URLs without ever changing the original link.
 
 ---
 
-## Features
+## ✨Features
 
 - **Personal Profile Pages**
     - Customizable templates to suit personal branding
@@ -33,8 +48,12 @@ Unlike traditional bio-link tools, JustLink introduces the **Constant Link** fea
 
 ---
 
+## 💻 Contributing
+
 For contributing to JustLink, read the [CONTRIBUTING.md](CONTRIBUTING.md) file.
 
 We welcome contributions from the community! Whether it's fixing bugs, adding new features, or improving documentation, your help is greatly appreciated.
 
-For any inquiries or support, please reach out to our team at [support@justlink.com](mailto:support@justlink.com).
+## 📄 License Change Notice
+
+This project was originally licensed under the MIT License. As of [22 Aug, 2025], it has been re-licensed under the GNU General Public License v3.0 (GPL-3.0). All future contributions and usage must comply with the GPL v3 terms.
