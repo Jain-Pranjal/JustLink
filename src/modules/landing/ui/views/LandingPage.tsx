@@ -12,13 +12,15 @@ import ScrollToTop from '@/components/global/ScrollToTop'
 const LandingPage = () => {
     return (
         <>
-            <Hero />
-            <StackingCards />
-            <Quote />
-            <BoxSignup />
-            <FAQ />
-            <Footer />
-            <ScrollToTop />
+            <div className="bg-[#090a0a]">
+                <Hero />
+                <StackingCards />
+                <Quote />
+                <BoxSignup />
+                <FAQ />
+                <Footer />
+                <ScrollToTop />
+            </div>
         </>
     )
 }
