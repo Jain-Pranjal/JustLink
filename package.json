@@ -6,7 +6,7 @@
         "type": "git",
         "url": "https://github.com/Jain-Pranjal/JustLink"
     },
-    "license": "MIT",
+    "license": "GPL-3.0",
     "author": "Pranjal Jain <pranjalworkon@gmail.com>",
     "scripts": {
         "dev": "next dev",
