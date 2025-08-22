@@ -4,8 +4,8 @@ import React from 'react'
 
 const BoxSignup = () => {
     return (
-        <RootContainer>
-            <div className="border-border mx-4 mb-32 flex flex-col items-center rounded-2xl border bg-[#F2F1EF] px-10 py-14 text-center md:container md:mx-auto md:px-24 md:py-20 dark:bg-[#121212]">
+        <RootContainer className="px-6 py-16 lg:px-8">
+            <div className="border-border mb-32 flex flex-col items-center rounded-2xl border bg-[#F2F1EF] px-10 py-14 text-center md:container md:mx-auto md:px-24 md:py-20 dark:bg-[#121212]">
                 <span className="text-primary text-6xl font-medium md:text-8xl dark:text-white">
                     Link by JustLink
                 </span>
@@ -23,7 +23,7 @@ const BoxSignup = () => {
                                     justlink.live/
                                     <input
                                         type="text"
-                                        placeholder="yourname"
+                                        placeholder="@yourname"
                                         className="w-full min-w-0 border-none bg-transparent px-0 py-3 text-sm text-black placeholder-gray-500 outline-none dark:text-white"
                                     />
                                 </span>
