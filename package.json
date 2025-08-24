@@ -37,6 +37,8 @@
     "dependencies": {
         "@contentful/rich-text-react-renderer": "^16.1.0",
         "@contentful/rich-text-types": "^17.1.0",
+        "@dicebear/collection": "^9.2.4",
+        "@dicebear/core": "^9.2.4",
         "@hookform/resolvers": "^5.2.1",
         "@lottiefiles/dotlottie-react": "^0.14.4",
         "@neondatabase/serverless": "^1.0.1",
