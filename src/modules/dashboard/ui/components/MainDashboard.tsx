@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react'
-// import { AnalyticsDashboard } from './AnalyticsDashboard'
+import { AnalyticsDashboard } from './AnalyticsDashboard'
 import { LinksPage } from './LinksPage'
 import { Button } from '@/components/ui/button'
 import { Search, Settings, HelpCircle } from 'lucide-react'
@@ -14,7 +14,7 @@ export const MainDashboard = () => {
     const renderContent = () => {
         switch (activeTab) {
             case 'analytics':
-            // return <AnalyticsDashboard />
+                return <AnalyticsDashboard />
             case 'links':
                 return <LinksPage />
             default:
