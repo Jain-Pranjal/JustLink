@@ -19,7 +19,7 @@ export const user = pgTable('user', {
     id: text('id')
         .primaryKey()
         .$defaultFn(() => nanoid(10)),
-    userName: text('user_name').notNull().unique(),
+    userName: text('user_name').unique(), // Will be set after social auth signup
     name: text('name').notNull(),
     email: text('email').notNull().unique(),
     emailVerified: boolean('email_verified')
@@ -215,7 +215,7 @@ export const folioItemsRelations = relations(folioItems, ({ one }) => ({
     }),
 }))
 
-// --------------SHORT LINKS------------------- (dub.co)
+// --------------SHORT LINKS-------------------
 export const shortLinks = pgTable('short_links', {
     id: text('id')
         .primaryKey()
@@ -230,7 +230,7 @@ export const shortLinks = pgTable('short_links', {
     slug: varchar('slug', { length: 100 }).notNull().unique(),
 
     destination: text('destination').notNull(),
-    clicks: integer('clicks').default(0).notNull(),
+    clicks: integer('clicks').default(0).notNull(), //TODO: need to make a separate route that will auto inc this
     expiresAt: timestamp('expires_at'),
 
     createdAt: timestamp('created_at', { withTimezone: true, mode: 'date' })
@@ -256,6 +256,10 @@ export const tags = pgTable(
         id: text('id')
             .primaryKey()
             .$defaultFn(() => nanoid(10)),
+
+        userId: text('user_id')
+            .notNull()
+            .references(() => user.id, { onDelete: 'cascade' }),
         workspaceId: text('workspace_id')
             .notNull()
             .references(() => workspaces.id, { onDelete: 'cascade' }),
@@ -272,7 +276,7 @@ export const tags = pgTable(
     })
 )
 
-// --------------SHORT LINK TAGS (Join table)-------------------
+// --------------SHORT LINK TAGS (Join table) for many-to-many relationship-------------------
 export const shortLinkTags = pgTable(
     'short_link_tags',
     {
