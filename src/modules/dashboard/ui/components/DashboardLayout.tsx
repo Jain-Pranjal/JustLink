@@ -3,13 +3,16 @@ import { useState } from 'react'
 import { Menu } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Sidebar } from './Sidebar'
+import { MainDashboard, ActiveSection } from './MainDashboard'
 
 interface DashboardLayoutProps {
-    children: React.ReactNode
+    children?: React.ReactNode
 }
 
 export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
     const [sidebarOpen, setSidebarOpen] = useState(false)
+    const [activeSection, setActiveSection] =
+        useState<ActiveSection>('justlink-dashboard')
 
     return (
         <div className="bg-background flex h-screen">
@@ -17,6 +20,8 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
             <Sidebar
                 isOpen={sidebarOpen}
                 onToggle={() => setSidebarOpen(!sidebarOpen)}
+                activeSection={activeSection}
+                onSectionChange={setActiveSection}
             />
 
             {/* Main content */}
@@ -34,7 +39,7 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
                         <div className="flex items-center gap-2">
                             <div className="bg-primary flex h-6 w-6 items-center justify-center rounded-md">
                                 <span className="text-primary-foreground text-xs font-bold">
-                                    A
+                                    J
                                 </span>
                             </div>
                             <span className="text-sm font-semibold">
@@ -45,7 +50,14 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
                 </div>
 
                 {/* Page content */}
-                <main className="flex-1 overflow-auto">{children}</main>
+                <main className="flex-1 overflow-auto">
+                    {children || (
+                        <MainDashboard
+                            activeSection={activeSection}
+                            onSectionChange={setActiveSection}
+                        />
+                    )}
+                </main>
             </div>
         </div>
     )

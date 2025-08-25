@@ -1,44 +1,87 @@
-import { useState } from 'react'
 import {
-    Link2,
-    Globe,
+    LayoutDashboard,
     BarChart3,
-    Calendar,
-    Users,
     Folder,
     Tag,
     ExternalLink,
-    Menu,
+    Tags,
     X,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
+import { ActiveSection } from './MainDashboard'
 
-const navigationItems = [
-    { name: 'Dashboard', href: '#', icon: BarChart3, isActive: true },
-    { name: 'Analytics', href: '#analytics', icon: BarChart3, isActive: false },
-    { name: 'Links', href: '#links', icon: Link2, isActive: false },
-    { name: 'Domains', href: '#', icon: Globe, isActive: false },
+const justlinkItems = [
+    {
+        name: 'Dashboard',
+        section: 'justlink-dashboard' as ActiveSection,
+        icon: LayoutDashboard,
+    },
+    {
+        name: 'Analytics',
+        section: 'justlink-analytics' as ActiveSection,
+        icon: BarChart3,
+    },
+    { name: 'Tags', section: 'justlink-tags' as ActiveSection, icon: Tags },
+    {
+        name: 'Folders',
+        section: 'justlink-folders' as ActiveSection,
+        icon: Folder,
+    },
 ]
 
-const insightsItems = [
-    { name: 'Lifecycle', href: '#', icon: Calendar },
-    { name: 'Projects', href: '#', icon: Folder },
-    { name: 'Team', href: '#', icon: Users },
+const onelinkItems = [
+    {
+        name: 'Dashboard',
+        section: 'onelink-dashboard' as ActiveSection,
+        icon: LayoutDashboard,
+    },
+    {
+        name: 'Analytics',
+        section: 'onelink-analytics' as ActiveSection,
+        icon: BarChart3,
+    },
 ]
 
 const libraryItems = [
-    { name: 'Data Library', href: '#', icon: Folder },
-    { name: 'Reports', href: '#', icon: Tag },
-    { name: 'Word Assistant', href: '#', icon: ExternalLink },
+    {
+        name: 'Data Library',
+        section: 'documents-library' as ActiveSection,
+        icon: Folder,
+    },
+    {
+        name: 'Reports',
+        section: 'documents-reports' as ActiveSection,
+        icon: Tag,
+    },
+    {
+        name: 'Word Assistant',
+        section: 'documents-assistant' as ActiveSection,
+        icon: ExternalLink,
+    },
 ]
 
 interface SidebarProps {
     isOpen?: boolean
     onToggle?: () => void
+    activeSection: ActiveSection
+    onSectionChange: (section: ActiveSection) => void
 }
 
-export const Sidebar = ({ isOpen = true, onToggle }: SidebarProps) => {
+export const Sidebar = ({
+    isOpen = true,
+    onToggle,
+    activeSection,
+    onSectionChange,
+}: SidebarProps) => {
+    const handleSectionClick = (section: ActiveSection) => {
+        onSectionChange(section)
+        // Close sidebar on mobile after selection
+        if (window.innerWidth < 1024 && onToggle) {
+            onToggle()
+        }
+    }
+
     return (
         <>
             {/* Mobile overlay */}
@@ -84,40 +127,54 @@ export const Sidebar = ({ isOpen = true, onToggle }: SidebarProps) => {
 
                     {/* Navigation */}
                     <div className="flex-1 space-y-6 overflow-y-auto p-4">
-                        {/* Main Navigation */}
-                        <nav className="space-y-1">
-                            {navigationItems.map((item) => (
-                                <a
-                                    key={item.name}
-                                    href={item.href}
-                                    className={cn(
-                                        'flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors',
-                                        item.isActive
-                                            ? 'bg-sidebar-accent text-sidebar-accent-foreground font-medium'
-                                            : 'text-sidebar-foreground hover:bg-sidebar-accent/50 hover:text-sidebar-accent-foreground'
-                                    )}
-                                >
-                                    <item.icon className="h-4 w-4" />
-                                    <span>{item.name}</span>
-                                </a>
-                            ))}
-                        </nav>
-
-                        {/* Main Section */}
+                        {/* Justlink Section */}
                         <div>
                             <h3 className="text-sidebar-foreground/70 mb-2 px-3 text-xs font-medium tracking-wider uppercase">
-                                Main
+                                Justlink
                             </h3>
                             <nav className="space-y-1">
-                                {insightsItems.map((item) => (
-                                    <a
-                                        key={item.name}
-                                        href={item.href}
-                                        className="text-sidebar-foreground hover:bg-sidebar-accent/50 hover:text-sidebar-accent-foreground flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors"
+                                {justlinkItems.map((item) => (
+                                    <button
+                                        key={item.section}
+                                        onClick={() =>
+                                            handleSectionClick(item.section)
+                                        }
+                                        className={cn(
+                                            'flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left text-sm transition-colors',
+                                            activeSection === item.section
+                                                ? 'bg-sidebar-accent text-sidebar-accent-foreground font-medium'
+                                                : 'text-sidebar-foreground hover:bg-sidebar-accent/50 hover:text-sidebar-accent-foreground'
+                                        )}
                                     >
                                         <item.icon className="h-4 w-4" />
                                         <span>{item.name}</span>
-                                    </a>
+                                    </button>
+                                ))}
+                            </nav>
+                        </div>
+
+                        {/* OneLink Section */}
+                        <div>
+                            <h3 className="text-sidebar-foreground/70 mb-2 px-3 text-xs font-medium tracking-wider uppercase">
+                                onelink
+                            </h3>
+                            <nav className="space-y-1">
+                                {onelinkItems.map((item) => (
+                                    <button
+                                        key={item.section}
+                                        onClick={() =>
+                                            handleSectionClick(item.section)
+                                        }
+                                        className={cn(
+                                            'flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left text-sm transition-colors',
+                                            activeSection === item.section
+                                                ? 'bg-sidebar-accent text-sidebar-accent-foreground font-medium'
+                                                : 'text-sidebar-foreground hover:bg-sidebar-accent/50 hover:text-sidebar-accent-foreground'
+                                        )}
+                                    >
+                                        <item.icon className="h-4 w-4" />
+                                        <span>{item.name}</span>
+                                    </button>
                                 ))}
                             </nav>
                         </div>
@@ -129,14 +186,21 @@ export const Sidebar = ({ isOpen = true, onToggle }: SidebarProps) => {
                             </h3>
                             <nav className="space-y-1">
                                 {libraryItems.map((item) => (
-                                    <a
-                                        key={item.name}
-                                        href={item.href}
-                                        className="text-sidebar-foreground hover:bg-sidebar-accent/50 hover:text-sidebar-accent-foreground flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors"
+                                    <button
+                                        key={item.section}
+                                        onClick={() =>
+                                            handleSectionClick(item.section)
+                                        }
+                                        className={cn(
+                                            'flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left text-sm transition-colors',
+                                            activeSection === item.section
+                                                ? 'bg-sidebar-accent text-sidebar-accent-foreground font-medium'
+                                                : 'text-sidebar-foreground hover:bg-sidebar-accent/50 hover:text-sidebar-accent-foreground'
+                                        )}
                                     >
                                         <item.icon className="h-4 w-4" />
                                         <span>{item.name}</span>
-                                    </a>
+                                    </button>
                                 ))}
                             </nav>
                         </div>
