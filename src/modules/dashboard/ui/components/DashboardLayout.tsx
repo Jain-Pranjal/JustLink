@@ -1,64 +1,78 @@
 'use client'
 import { useState } from 'react'
-import { Menu } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Sidebar } from './Sidebar'
+import {
+    SidebarProvider,
+    SidebarInset,
+    SidebarTrigger,
+} from '@/components/ui/sidebar'
+import { AppSidebar } from './Sidebar'
 import { MainDashboard, ActiveSection } from './MainDashboard'
+import { authClient } from '@/lib/auth-client'
 
 interface DashboardLayoutProps {
     children?: React.ReactNode
 }
 
 export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
-    const [sidebarOpen, setSidebarOpen] = useState(false)
     const [activeSection, setActiveSection] =
         useState<ActiveSection>('justlink-dashboard')
 
+    // Get user session data
+    const { data, isPending } = authClient.useSession()
+
+    // Get page title based on active section
+    const getPageTitle = () => {
+        switch (activeSection) {
+            case 'justlink-dashboard':
+                return 'JustLink Dashboard'
+            case 'justlink-analytics':
+                return 'JustLink Analytics'
+            case 'justlink-tags':
+                return 'Tags'
+            case 'justlink-folders':
+                return 'Folders'
+            case 'onelink-dashboard':
+                return 'OneLink Dashboard'
+            case 'onelink-analytics':
+                return 'OneLink Analytics'
+            case 'documents-library':
+                return 'Data Library'
+            case 'documents-reports':
+                return 'Reports'
+            case 'documents-assistant':
+                return 'Word Assistant'
+            default:
+                return 'Dashboard'
+        }
+    }
+
     return (
-        <div className="bg-background flex h-screen">
-            {/* Sidebar - Always visible on desktop, overlay on mobile */}
-            <Sidebar
-                isOpen={sidebarOpen}
-                onToggle={() => setSidebarOpen(!sidebarOpen)}
+        <SidebarProvider>
+            <AppSidebar
                 activeSection={activeSection}
                 onSectionChange={setActiveSection}
             />
-
-            {/* Main content */}
-            <div className="flex min-w-0 flex-1 flex-col">
-                {/* Mobile header */}
-                <div className="lg:hidden">
-                    <div className="border-border bg-background flex items-center justify-between border-b p-4">
-                        <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => setSidebarOpen(true)}
-                        >
-                            <Menu className="h-5 w-5" />
-                        </Button>
-                        <div className="flex items-center gap-2">
-                            <div className="bg-primary flex h-6 w-6 items-center justify-center rounded-md">
-                                <span className="text-primary-foreground text-xs font-bold">
-                                    J
-                                </span>
-                            </div>
-                            <span className="text-sm font-semibold">
-                                JustLink
-                            </span>
-                        </div>
+            <SidebarInset>
+                {/* Top Navigation Bar */}
+                <header className="flex h-16 shrink-0 items-center justify-between border-b px-6">
+                    <div className="flex items-center gap-4">
+                        <SidebarTrigger className="-ml-1 lg:hidden" />
+                        <h1 className="text-foreground text-2xl font-semibold">
+                            {getPageTitle()}
+                        </h1>
                     </div>
-                </div>
+                </header>
 
-                {/* Page content */}
-                <main className="flex-1 overflow-auto">
+                {/* Main content area */}
+                <div className="flex flex-1 flex-col gap-4 p-4">
                     {children || (
                         <MainDashboard
                             activeSection={activeSection}
                             onSectionChange={setActiveSection}
                         />
                     )}
-                </main>
-            </div>
-        </div>
+                </div>
+            </SidebarInset>
+        </SidebarProvider>
     )
 }
