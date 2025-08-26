@@ -1,6 +1,7 @@
 'use client'
 import { AnalyticsDashboard } from './AnalyticsDashboard'
 import { LinksPage } from './LinksPage'
+import { TagsPage } from './TagsPage'
 
 export type ActiveSection =
     | 'justlink-dashboard'
@@ -29,17 +30,7 @@ export const MainDashboard = ({
             case 'justlink-analytics':
                 return <AnalyticsDashboard />
             case 'justlink-tags':
-                // TODO: Implement TagsPage component
-                return (
-                    <div className="p-8">
-                        <h2 className="text-2xl font-semibold">
-                            Tags Management
-                        </h2>
-                        <p className="text-muted-foreground mt-2">
-                            Tags component will be rendered here
-                        </p>
-                    </div>
-                )
+                return <TagsPage />
             case 'justlink-folders':
                 // TODO: Implement FoldersPage component
                 return (
