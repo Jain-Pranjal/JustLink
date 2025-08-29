@@ -95,102 +95,6 @@ export const dashboardRouter = createTRPCRouter({
         return { success: true }
     }),
 
-    // Get all workspaces for current user
-    getWorkspaces: protectedProcedure.query(async ({ ctx }) => {
-        const { auth } = ctx
-
-        const [items] = await db
-            .select()
-            .from(workspaces)
-            .where(eq(workspaces.userId, auth.user.id))
-
-        return items
-    }),
-
-    // Get single workspace by id
-    getWorkspaceById: protectedProcedure
-        .input(z.object({ id: z.string().uuid() }))
-        .query(async ({ input, ctx }) => {
-            const { auth } = ctx
-
-            const [workspace] = await db
-                .select()
-                .from(workspaces)
-                .where(
-                    and(
-                        eq(workspaces.id, input.id),
-                        eq(workspaces.userId, auth.user.id)
-                    )
-                )
-                .limit(1)
-
-            if (!workspace) {
-                throw new TRPCError({
-                    code: 'NOT_FOUND',
-                    message: 'Workspace not found',
-                })
-            }
-
-            return workspace
-        }),
-
-    // create workspace
-    createWorkspace: protectedProcedure
-        .input(
-            z.object({
-                name: z.string().min(3).max(100),
-            })
-        )
-        .mutation(async ({ input, ctx }) => {
-            const { auth } = ctx
-            const { name } = input
-
-            // Create workspace in database
-            const [createdWorkspace] = await db
-                .insert(workspaces)
-                .values({
-                    name,
-                    slug: name.toLowerCase().replace(/\s+/g, '-'),
-                    userId: auth.user.id,
-                })
-                .returning()
-
-            return { success: true, workspace: createdWorkspace }
-        }),
-
-    // delete workspace
-
-    deleteWorkspace: protectedProcedure
-        .input(
-            z.object({
-                id: z.string(),
-            })
-        )
-        .mutation(async ({ input, ctx }) => {
-            const { auth } = ctx
-            const { id } = input
-
-            // Delete workspace from database
-            const [deletedWorkspace] = await db
-                .delete(workspaces)
-                .where(
-                    and(
-                        eq(workspaces.id, id),
-                        eq(workspaces.userId, auth.user.id)
-                    )
-                )
-                .returning()
-
-            if (!deletedWorkspace) {
-                throw new TRPCError({
-                    code: 'NOT_FOUND',
-                    message: 'Workspace not found',
-                })
-            }
-
-            return { success: true }
-        }),
-
     // Profile
     // Get current user profile
     getProfile: protectedProcedure.query(async ({ ctx }) => {
@@ -211,6 +115,30 @@ export const dashboardRouter = createTRPCRouter({
 
         return profile
     }),
+
+    // updating both onboardingComplete and lastWorkspaceId
+    updateOnboardingFlag: protectedProcedure
+        .input(
+            z.object({
+                // getting the latest workspace id that is created at the time of onboarding
+                onboardingComplete: z.boolean(),
+                workspaceId: z.string(),
+            })
+        )
+        .mutation(async ({ input, ctx }) => {
+            const { auth } = ctx
+            const { onboardingComplete, workspaceId } = input
+
+            await db
+                .update(user)
+                .set({
+                    onboardingComplete,
+                    lastWorkspaceId: workspaceId,
+                })
+                .where(eq(user.id, auth.user.id))
+
+            return { success: true }
+        }),
 })
 
 // TODO: need to handle the data for the clicks so we can update that as well
@@ -603,4 +531,101 @@ export const tagRouter = createTRPCRouter({
 
             return { tags: tagsWithDetails }
         }),
+})
+
+export const workspaceRouter = createTRPCRouter({
+    // Get single workspace by id
+    getWorkspaceById: protectedProcedure
+        .input(z.object({ id: z.string() }))
+        .query(async ({ input, ctx }) => {
+            const { auth } = ctx
+
+            const [workspace] = await db
+                .select()
+                .from(workspaces)
+                .where(
+                    and(
+                        eq(workspaces.id, input.id),
+                        eq(workspaces.userId, auth.user.id)
+                    )
+                )
+                .limit(1)
+
+            if (!workspace) {
+                throw new TRPCError({
+                    code: 'NOT_FOUND',
+                    message: 'Workspace not found',
+                })
+            }
+
+            return workspace
+        }),
+
+    // create workspace
+    createWorkspace: protectedProcedure
+        .input(
+            z.object({
+                workspaceName: z.string().min(3).max(100),
+            })
+        )
+        .mutation(async ({ input, ctx }) => {
+            const { auth } = ctx
+            const { workspaceName } = input
+
+            // Create workspace in database
+            const [createdWorkspace] = await db
+                .insert(workspaces)
+                .values({
+                    name: workspaceName,
+                    slug: workspaceName.toLowerCase().replace(/\s+/g, '-'),
+                    userId: auth.user.id,
+                })
+                .returning()
+
+            return { success: true, workspace: createdWorkspace }
+        }),
+
+    // delete workspace
+
+    deleteWorkspace: protectedProcedure
+        .input(
+            z.object({
+                id: z.string(),
+            })
+        )
+        .mutation(async ({ input, ctx }) => {
+            const { auth } = ctx
+            const { id } = input
+
+            // Delete workspace from database
+            const [deletedWorkspace] = await db
+                .delete(workspaces)
+                .where(
+                    and(
+                        eq(workspaces.id, id),
+                        eq(workspaces.userId, auth.user.id)
+                    )
+                )
+                .returning()
+
+            if (!deletedWorkspace) {
+                throw new TRPCError({
+                    code: 'NOT_FOUND',
+                    message: 'Workspace not found',
+                })
+            }
+
+            return { success: true }
+        }),
+
+    // Get all workspaces for current user
+    getWorkspaces: protectedProcedure.query(async ({ ctx }) => {
+        const { auth } = ctx
+
+        const [allWorkspaces] = await db
+            .select()
+            .from(workspaces)
+            .where(eq(workspaces.userId, auth.user.id))
+        return allWorkspaces
+    }),
 })

@@ -7,6 +7,15 @@ const reservedRoutes = ['settings', 'profile', 'api', 'auth']
 const reservedRegex = reservedRoutes.join('|')
 
 const nextConfig: NextConfig = {
+    images: {
+        domains: [
+            'lh3.googleusercontent.com', // Google profile pics
+            'avatars.githubusercontent.com', // GitHub avatars
+            'pbs.twimg.com', // Twitter/X profile pics
+            'abs.twimg.com', // Default X avatars
+        ],
+    },
+
     async rewrites() {
         return [
             {

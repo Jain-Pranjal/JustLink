@@ -22,6 +22,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { EyeIcon, EyeOffIcon } from 'lucide-react'
+import { checkOnboardingFlag } from '@/lib/checkOnboarding'
 
 const formSchema = z.object({
     email: z.string().email({ message: 'Please enter a valid email address' }),
@@ -74,7 +75,7 @@ const SigninView = () => {
                             id: 'onetap',
                             duration: 5000,
                         })
-                        router.push('/')
+                        checkOnboardingFlag()
                     },
                     onError: ({ error }) => {
                         setPending(false)
@@ -120,7 +121,7 @@ const SigninView = () => {
                         id: 'signin',
                         duration: 5000,
                     })
-                    router.push('/')
+                    checkOnboardingFlag()
                 },
 
                 onError: ({ error }) => {
@@ -191,6 +192,7 @@ const SigninView = () => {
                 },
                 onSuccess: () => {
                     setPending(false)
+                    checkOnboardingFlag()
                 },
                 onError: ({ error }) => {
                     setPending(false)

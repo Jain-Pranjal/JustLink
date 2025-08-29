@@ -22,6 +22,10 @@ export const user = pgTable('user', {
     userName: text('user_name').unique(), // Will be set after social auth signup
     name: text('name').notNull(),
     email: text('email').notNull().unique(),
+    onboardingComplete: boolean('onboarding_complete')
+        .$defaultFn(() => false)
+        .notNull(),
+    lastWorkspaceId: text('last_workspace_id'),
     emailVerified: boolean('email_verified')
         .$defaultFn(() => false)
         .notNull(),
@@ -33,6 +37,13 @@ export const user = pgTable('user', {
         .$defaultFn(() => /* @__PURE__ */ new Date())
         .notNull(),
 })
+
+export const userRelations = relations(user, ({ one }) => ({
+    lastWorkspace: one(workspaces, {
+        fields: [user.lastWorkspaceId],
+        references: [workspaces.id],
+    }),
+}))
 
 export const session = pgTable('session', {
     id: text('id')
@@ -128,6 +139,13 @@ export const workspaces = pgTable(
         uniqueUserSlug: unique().on(table.userId, table.slug), // enforce per-user slug uniqueness
     })
 )
+
+export const workspaceRelations = relations(workspaces, ({ one }) => ({
+    user: one(user, {
+        fields: [workspaces.userId],
+        references: [user.id],
+    }),
+}))
 
 // ---------------- WORKSPACE MEMBERS (for team feature) ----------------
 export const workspaceMembers = pgTable('workspace_members', {
@@ -228,6 +246,7 @@ export const shortLinks = pgTable('short_links', {
 
     // Globally unique slug (no matter workspace)
     slug: varchar('slug', { length: 100 }).notNull().unique(),
+    isArchived: boolean('is_archived').default(false).notNull(),
 
     destination: text('destination').notNull(),
     clicks: integer('clicks').default(0).notNull(), //TODO: need to make a separate route that will auto inc this

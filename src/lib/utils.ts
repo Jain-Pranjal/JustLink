@@ -64,3 +64,19 @@ export function constructMetadata(): Metadata {
         },
     }
 }
+
+export function getHighResImage(url?: string) {
+    if (!url) return undefined
+
+    if (url.includes('googleusercontent.com')) {
+        return url.replace(/=s\d+-c$/, '=s512-c') // bump size
+    }
+    if (url.includes('twimg.com')) {
+        return url.replace('_normal', '_400x400') // better res
+    }
+    if (url.includes('githubusercontent.com')) {
+        return url.replace(/\?s=\d+$/, '?s=512') // bump size
+    }
+
+    return url
+}
