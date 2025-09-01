@@ -2,6 +2,7 @@
 import { AnalyticsDashboard } from './AnalyticsDashboard'
 import { LinksPage } from './LinksPage'
 import { TagsPage } from './TagsPage'
+import { OneLinkDashboard } from './OneLinkDashboard'
 
 export type ActiveSection =
     | 'justlink-dashboard'
@@ -19,9 +20,11 @@ interface MainDashboardProps {
     onSectionChange: (section: ActiveSection) => void
 }
 
+// so eska matlab hai ke apaak jo bhi active session hoga vo aapaka vhi content yaha dikhai dega so mene active sesssion ka bana lia hai jisse we cna see the ke kons section active hai and vo usko vhi section show kar deta
+
 export const MainDashboard = ({
     activeSection,
-    onSectionChange,
+    // onSectionChange,
 }: MainDashboardProps) => {
     const renderContent = () => {
         switch (activeSection) {
@@ -44,17 +47,7 @@ export const MainDashboard = ({
                     </div>
                 )
             case 'onelink-dashboard':
-                // TODO: Implement OneLinkDashboard component
-                return (
-                    <div className="p-8">
-                        <h2 className="text-2xl font-semibold">
-                            OneLink Dashboard
-                        </h2>
-                        <p className="text-muted-foreground mt-2">
-                            OneLink dashboard component will be rendered here
-                        </p>
-                    </div>
-                )
+                return <OneLinkDashboard />
             case 'onelink-analytics':
                 // TODO: Implement OneLinkAnalytics component
                 return (
