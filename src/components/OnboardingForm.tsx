@@ -22,6 +22,7 @@ import { generatedAvatarURI } from '@/lib/avatar'
 import { toast } from 'sonner'
 import { useEffect } from 'react'
 import { getHighResImage } from '@/lib/utils'
+import RootContainer from './global/RootContainer'
 
 const onboardingSchema = z.object({
     username: z.string().min(3, 'Username must be at least 3 characters'),
@@ -141,86 +142,98 @@ const OnboardingForm = () => {
         })
 
     return (
-        <div className="mx-auto max-w-md space-y-6 p-6">
-            {/* Profile image preview */}
-            <div className="flex justify-center">
-                <Image
-                    src={profileImage}
-                    alt="Profile Preview"
-                    width={180}
-                    height={180}
-                    quality={100}
-                    className="rounded-full border"
-                />
-            </div>
-
-            <Form {...form}>
-                <form
-                    onSubmit={form.handleSubmit(onSubmit)}
-                    className="space-y-4"
-                >
-                    <FormField
-                        name="username"
-                        control={form.control}
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Username</FormLabel>
-                                <FormControl>
-                                    <Input
-                                        placeholder="Choose your username"
-                                        {...field}
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
+        <RootContainer className='mx-0 flex min-h-screen min-w-[100%] items-center justify-center overflow-x-hidden bg-[url("/justlink_onboarding.png")] bg-cover bg-no-repeat'>
+            <div className="mx-auto w-md space-y-6 rounded border border-[1px] border-black bg-white p-6 max-sm:max-w-md">
+                {/* Profile image preview */}
+                <div>
+                    <div className="text-center text-3xl font-semibold text-black">
+                        Add Profile Details
+                    </div>
+                    <div className="p-2 text-center text-sm text-gray-700 sm:text-[1rem]">
+                        Add your profile image, name, and slug.
+                    </div>
+                </div>
+                <div className="flex justify-center">
+                    <Image
+                        src={profileImage}
+                        alt="Profile Preview"
+                        width={180}
+                        height={180}
+                        quality={100}
+                        className="rounded-full border"
                     />
+                </div>
 
-                    <FormField
-                        name="workspaceName"
-                        control={form.control}
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Workspace Name</FormLabel>
-                                <FormControl>
-                                    <Input
-                                        placeholder="Enter your workspace name"
-                                        {...field}
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-
-                    <FormField
-                        name="slug"
-                        control={form.control}
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Slug </FormLabel>
-                                <FormControl>
-                                    <Input
-                                        {...field}
-                                        readOnly
-                                        className="bg-gray-100"
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-
-                    <Button
-                        type="submit"
-                        className="w-full"
-                        disabled={isLoading}
+                <Form {...form}>
+                    <form
+                        onSubmit={form.handleSubmit(onSubmit)}
+                        className="space-y-4"
                     >
-                        {isLoading ? 'Saving...' : 'Continue'}
-                    </Button>
-                </form>
-            </Form>
-        </div>
+                        <FormField
+                            name="username"
+                            control={form.control}
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Username</FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            placeholder="Choose your username"
+                                            {...field}
+                                            className="text-sm"
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+
+                        <FormField
+                            name="workspaceName"
+                            control={form.control}
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Workspace Name</FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            placeholder="Enter your workspace name"
+                                            {...field}
+                                            className="text-sm"
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+
+                        <FormField
+                            name="slug"
+                            control={form.control}
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Slug </FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            {...field}
+                                            readOnly
+                                            className="bg-gray-100"
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+
+                        <Button
+                            type="submit"
+                            className="w-full"
+                            disabled={isLoading}
+                        >
+                            {isLoading ? 'Saving...' : 'Continue'}
+                        </Button>
+                    </form>
+                </Form>
+            </div>
+        </RootContainer>
     )
 }
 
