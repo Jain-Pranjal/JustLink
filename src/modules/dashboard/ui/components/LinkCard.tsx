@@ -1,6 +1,8 @@
 import { Copy, ExternalLink, MoreHorizontal } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
+// import { toast } from 'sonner'
+import { copyLinkToClipboard } from '@/lib/utils'
 
 interface LinkCardProps {
     shortUrl: string
@@ -31,6 +33,12 @@ export const LinkCard = ({
                             variant="ghost"
                             size="sm"
                             className="h-6 w-6 p-0"
+                            onClick={() =>
+                                copyLinkToClipboard(
+                                    shortUrl,
+                                    'Link copied to clipboard!'
+                                )
+                            }
                         >
                             <Copy className="h-3 w-3" />
                         </Button>
