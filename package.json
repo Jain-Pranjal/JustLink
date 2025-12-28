@@ -116,6 +116,8 @@
         "eslint-config-next": "15.4.5",
         "eslint-config-prettier": "^10.1.8",
         "eslint-plugin-prettier": "^5.5.4",
+        "eslint-plugin-import": "^2.32.0",
+        "eslint-plugin-simple-import-sort": "^12.1.1",
         "husky": "^9.1.7",
         "jest": "^30.0.5",
         "jest-environment-jsdom": "^30.0.5",
