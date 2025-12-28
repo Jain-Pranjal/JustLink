@@ -30,7 +30,7 @@
             "prettier --write",
             "eslint --fix"
         ],
-        "*.{json,md,yml,yaml}": [
+        "*.{json,md,yml,yaml,css,scss}": [
             "prettier --write"
         ]
     },
@@ -98,6 +98,8 @@
     },
     "devDependencies": {
         "@changesets/cli": "^2.29.5",
+        "@commitlint/cli": "^20.2.0",
+        "@commitlint/config-conventional": "^20.2.0",
         "@eslint/eslintrc": "^3",
         "@tailwindcss/postcss": "^4",
         "@testing-library/jest-dom": "^6.7.0",
