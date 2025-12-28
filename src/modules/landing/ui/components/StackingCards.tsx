@@ -1,5 +1,6 @@
 'use client'
 import React, { useEffect, useRef, useState } from 'react'
+
 import RootContainer from '@/components/global/RootContainer'
 
 const StackingCards = () => {
@@ -134,8 +135,9 @@ const StackingCards = () => {
                             <div className="relative z-10 flex h-full items-center p-5 sm:p-6 md:p-8">
                                 <div className="max-w-lg">
                                     <h3 className="font-display mb-4 text-2xl leading-tight font-bold text-white sm:text-3xl md:text-4xl">
-                                        Lorem ipsum dolor sit amet consectetur
-                                        adipisicing elit. Ad, error?
+                                        Long, cluttered URLs break flow, look
+                                        unprofessional, and make it impossible
+                                        to track what actually works
                                     </h3>
                                 </div>
                             </div>
@@ -168,8 +170,9 @@ const StackingCards = () => {
                             <div className="relative z-10 flex h-full items-center p-5 sm:p-6 md:p-8">
                                 <div className="max-w-lg">
                                     <h3 className="font-display mb-4 text-2xl leading-tight font-bold text-white sm:text-3xl md:text-4xl">
-                                        Lorem ipsum dolor sit amet consectetur
-                                        adipisicing elit. Ad, error?
+                                        A world where every link is clean,
+                                        shareable, and smart - designed to look
+                                        good and work even better
                                     </h3>
                                 </div>
                             </div>
@@ -202,10 +205,12 @@ const StackingCards = () => {
                             <div className="relative z-10 flex h-full items-center p-5 sm:p-6 md:p-8">
                                 <div className="max-w-lg">
                                     <h3 className="font-display mb-4 text-2xl leading-tight font-bold text-white sm:text-3xl md:text-4xl">
-                                        Lorem, ipsum.,{' '}
-                                        <span className="text-[#FC4D0A]">
-                                            Lorem, ipsum.
+                                        <span className="text-[#581900]">
+                                            JustLink{' '}
                                         </span>
+                                        turns messy URLs into sleek, trackable
+                                        links - giving you full control over
+                                        every click you share
                                     </h3>
                                 </div>
                             </div>

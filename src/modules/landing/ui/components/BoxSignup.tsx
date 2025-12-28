@@ -1,18 +1,18 @@
 'use client'
-import RootContainer from '@/components/global/RootContainer'
 import React from 'react'
+
+import RootContainer from '@/components/global/RootContainer'
 
 const BoxSignup = () => {
     return (
         <RootContainer className="px-6 py-16 lg:px-8">
             <div className="border-border flex flex-col items-center rounded-2xl border bg-[#F2F1EF] px-10 py-14 text-center md:container md:mx-auto md:mb-32 md:px-24 md:py-20 dark:bg-[#121212]">
                 <span className="text-primary text-6xl font-medium md:text-8xl dark:text-white">
-                    Link by JustLink
+                    Link in Bio by JustLink
                 </span>
 
                 <p className="mt-6 text-[#878787]">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                    Similique, ad?
+                    Your entire presence, just one link away
                 </p>
 
                 <div className="mx-auto mt-10 w-full max-w-md md:mb-8">
