@@ -30,7 +30,7 @@
             "prettier --write",
             "eslint --fix"
         ],
-        "*.{json,md,yml,yaml,css,scss}": [
+        "*.{json,md,yml,yaml}": [
             "prettier --write"
         ]
     },
@@ -75,7 +75,7 @@
         "lucide-react": "^0.534.0",
         "motion": "^12.23.12",
         "nanoid": "^5.1.5",
-        "next": "15.4.5",
+        "next": "15.4.10",
         "next-themes": "^0.4.6",
         "pino": "^10.1.0",
         "qr-code-styling": "^1.9.2",

@@ -8,11 +8,11 @@ const reservedRegex = reservedRoutes.join('|')
 
 const nextConfig: NextConfig = {
     images: {
-        domains: [
-            'lh3.googleusercontent.com', // Google profile pics
-            'avatars.githubusercontent.com', // GitHub avatars
-            'pbs.twimg.com', // Twitter/X profile pics
-            'abs.twimg.com', // Default X avatars
+        remotePatterns: [
+            { protocol: 'https', hostname: 'lh3.googleusercontent.com' }, // Google profile pics
+            { protocol: 'https', hostname: 'avatars.githubusercontent.com' }, // GitHub avatars
+            { protocol: 'https', hostname: 'pbs.twimg.com' }, // Twitter/X profile pics
+            { protocol: 'https', hostname: 'abs.twimg.com' }, // Default X avatars
         ],
     },
 
