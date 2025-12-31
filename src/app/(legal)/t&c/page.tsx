@@ -12,6 +12,7 @@ import {
     Hyperlink,
 } from '@contentful/rich-text-types'
 import { Exo_2 } from 'next/font/google'
+import { Metadata } from 'next'
 
 const exo2 = Exo_2({
     subsets: ['latin'],
@@ -19,6 +20,28 @@ const exo2 = Exo_2({
 })
 
 export const revalidate = 86400 // Revalidate every day automatically
+
+export const metadata: Metadata = {
+    title: 'Terms and Conditions',
+    description:
+        'JustLink is committed to providing a transparent and secure experience. These Terms and Conditions outline the rules and guidelines for using our platform.',
+    openGraph: {
+        title: 'JustLink | Terms and Conditions',
+        description:
+            'JustLink is committed to providing a transparent and secure experience. These Terms and Conditions outline the rules and guidelines for using our platform.',
+        url: 'https://justlink.live/t&c',
+        siteName: 'JustLink',
+        locale: 'en_US',
+        type: 'website',
+    },
+    twitter: {
+        title: 'JustLink | Terms and Conditions',
+        description:
+            'JustLink is committed to providing a transparent and secure experience. These Terms and Conditions outline the rules and guidelines for using our platform.',
+        card: 'summary_large_image',
+        site: 'https://justlink.live',
+    },
+}
 
 export default async function TandCPage() {
     const page = await getContentBySlug('terms-and-conditions')
@@ -84,8 +107,8 @@ export default async function TandCPage() {
     }
 
     return (
-        <RootContainer className="w-screen max-w-none bg-gray-900/95">
-            <main>
+        <RootContainer className="w-screen max-w-none bg-[#090A0A] text-[#E5E3DF]">
+            <main className="mt-16">
                 <div className="xl:m-12 xl:px-4">
                     {page.fields.content &&
                     typeof page.fields.content === 'object' &&

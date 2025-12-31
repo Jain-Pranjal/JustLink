@@ -26,7 +26,11 @@ We welcome contributions to **JustLink** and appreciate the effort made by every
     ```bash
     pnpm install
     ```
-2. Set up environment variables by copying the **.env.example** file to **.env** and filling in the necessary details.
+2. Set up environment variables by copying the **.env.example** file to **.env.local** and filling in the necessary details.
+
+    ```bash
+    cp .env.example .env.local
+    ```
 
 3. Push the database schema:
     ```bash

@@ -15,7 +15,7 @@ export function constructMetadata(): Metadata {
         manifest: '/manifest.json',
         title: {
             default: 'JustLink',
-            template: 'JustLink | %s', //TODO: change the dynamic title
+            template: 'JustLink | %s',
         },
         description:
             'One link, endless possibilities. The easiest way to collect and organize links into one page for creators, professionals, and businesses.',
@@ -63,4 +63,20 @@ export function constructMetadata(): Metadata {
             creator: '@PranjalJain03',
         },
     }
+}
+
+export function getHighResImage(url?: string) {
+    if (!url) return undefined
+
+    if (url.includes('googleusercontent.com')) {
+        return url.replace(/=s\d+-c$/, '=s512-c') // bump size
+    }
+    if (url.includes('twimg.com')) {
+        return url.replace('_normal', '_400x400') // better res
+    }
+    if (url.includes('githubusercontent.com')) {
+        return url.replace(/\?s=\d+$/, '?s=512') // bump size
+    }
+
+    return url
 }

@@ -12,6 +12,7 @@ import {
     Hyperlink,
 } from '@contentful/rich-text-types'
 import { Exo_2 } from 'next/font/google'
+import { Metadata } from 'next'
 
 const exo2 = Exo_2({
     subsets: ['latin'],
@@ -19,6 +20,28 @@ const exo2 = Exo_2({
 })
 
 export const revalidate = 86400 // Revalidate every day automatically
+
+export const metadata: Metadata = {
+    title: 'Privacy Policy',
+    description:
+        'JustLink is committed to protecting your privacy. This Privacy Policy outlines our practices regarding the collection, use, and disclosure of your information.',
+    openGraph: {
+        title: 'JustLink | Privacy Policy',
+        description:
+            'JustLink is committed to protecting your privacy. This Privacy Policy outlines our practices regarding the collection, use, and disclosure of your information.',
+        url: 'https://justlink.live/privacy-policy',
+        siteName: 'JustLink',
+        locale: 'en_US',
+        type: 'website',
+    },
+    twitter: {
+        title: 'JustLink | Privacy Policy',
+        description:
+            'JustLink is committed to protecting your privacy. This Privacy Policy outlines our practices regarding the collection, use, and disclosure of your information.',
+        card: 'summary_large_image',
+        site: 'https://justlink.live',
+    },
+}
 
 export default async function PrivacyPolicyPage() {
     const page = await getContentBySlug('privacy-policy')
@@ -84,8 +107,8 @@ export default async function PrivacyPolicyPage() {
     }
 
     return (
-        <RootContainer className="w-screen max-w-none bg-gray-900/95">
-            <main>
+        <RootContainer className="w-screen max-w-none bg-[#090A0A] text-[#E5E3DF]">
+            <main className="mt-16">
                 <div className="xl:m-12 xl:px-4">
                     {page.fields.content &&
                     typeof page.fields.content === 'object' &&

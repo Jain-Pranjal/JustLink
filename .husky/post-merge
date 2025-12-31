@@ -1,0 +1,16 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "🔄 Running post-merge hook..."
+
+# Check if package.json or lockfile changed
+changed_files="$(git diff-tree -r --name-only --no-commit-id ORIG_HEAD HEAD)"
+
+if echo "$changed_files" | grep -E "package.json|pnpm-lock.yaml" > /dev/null; then
+  echo "📦 Dependencies changed. Running pnpm install..."
+  pnpm install
+else
+  echo "✨ No dependency changes found."
+fi
+
+echo "✅ Post-merge hook completed!"
