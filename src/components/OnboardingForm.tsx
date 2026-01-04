@@ -1,11 +1,14 @@
 'use client'
 
-import { useTRPC } from '@/trpc/client'
-import { useMutation } from '@tanstack/react-query'
-import { authClient } from '@/lib/auth-client'
-import { useForm } from 'react-hook-form'
-import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useMutation } from '@tanstack/react-query'
+import Image from 'next/image'
+import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
+import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
+import { z } from 'zod'
+
 import { Button } from '@/components/ui/button'
 import {
     Form,
@@ -16,17 +19,16 @@ import {
     FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { useRouter } from 'next/navigation'
-import Image from 'next/image'
+import { authClient } from '@/lib/auth-client'
 import { generatedAvatarURI } from '@/lib/avatar'
-import { toast } from 'sonner'
-import { useEffect } from 'react'
+import logger from '@/lib/logger'
 import { getHighResImage } from '@/lib/utils'
+import { useTRPC } from '@/trpc/client'
 
 const onboardingSchema = z.object({
     username: z.string().min(3, 'Username must be at least 3 characters'),
     workspaceName: z.string().min(2, 'Workspace name is required'),
-    slug: z.string().min(2, 'Slug is required'),
+    slug: z.string().min(2, 'Workspace Slug is required'),
 })
 
 const OnboardingForm = () => {
@@ -38,7 +40,7 @@ const OnboardingForm = () => {
     const createUsername = useMutation(
         trpc.dashboard.createUsername.mutationOptions({
             onSuccess: async () => {
-                console.log('Username set successfully')
+                logger.info('Username created successfully')
             },
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             onError: (error: any) => {
@@ -50,7 +52,7 @@ const OnboardingForm = () => {
     const createWorkspace = useMutation(
         trpc.workspace.createWorkspace.mutationOptions({
             onSuccess: async () => {
-                console.log('Workspace created successfully')
+                logger.info('Workspace created successfully')
             },
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             onError: (error: any) => {
@@ -62,7 +64,7 @@ const OnboardingForm = () => {
     const updateOnboardingFlag = useMutation(
         trpc.dashboard.updateOnboardingFlag.mutationOptions({
             onSuccess: async () => {
-                console.log('Onboarding flag updated successfully')
+                logger.info('Onboarding flag updated successfully')
             },
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             onError: (error: any) => {
@@ -108,6 +110,7 @@ const OnboardingForm = () => {
             const wsRes = await createWorkspace.mutateAsync({
                 workspaceName: values.workspaceName,
             })
+            // passing the new workspace id that is made above to set lastWorkspaceId
             await updateOnboardingFlag.mutateAsync({
                 onboardingComplete: true,
                 workspaceId: wsRes.workspace.id, //it will set the lastWorkspaceId
@@ -118,18 +121,30 @@ const OnboardingForm = () => {
 
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (err: any) {
-            toast.error(err.message || 'Something went wrong')
+            toast.error(
+                err.message || 'Something went wrong, please try again.'
+            )
         }
     }
 
     // THIS SUBMIT BUTTON WILL REDIRECT THE USER TO THE ACTUAL /DASHBOARD/:USERNAME/:WORKSPACE AS WE HAVE CAPTURED THE BOTH AND READY TO REDIRECT THE USER
 
     if (isPending) {
-        return <div>Loading...</div>
+        return (
+            <div className="flex min-h-screen items-center justify-center">
+                <div className="text-muted-foreground text-lg">Loading...</div>
+            </div>
+        )
     }
 
     if (!data?.user) {
-        return <div>Please sign in to continue</div>
+        return (
+            <div className="flex min-h-screen items-center justify-center">
+                <div className="text-muted-foreground text-lg">
+                    Please sign in to continue
+                </div>
+            </div>
+        )
     }
 
     // --- Pick profile image ---
@@ -141,85 +156,109 @@ const OnboardingForm = () => {
         })
 
     return (
-        <div className="mx-auto max-w-md space-y-6 p-6">
-            {/* Profile image preview */}
-            <div className="flex justify-center">
-                <Image
-                    src={profileImage}
-                    alt="Profile Preview"
-                    width={180}
-                    height={180}
-                    quality={100}
-                    className="rounded-full border"
-                />
-            </div>
+        <div className="from-background to-muted/20 flex min-h-screen items-center justify-center bg-gradient-to-br p-4">
+            <div className="bg-card w-full max-w-md space-y-8 rounded-2xl border p-8 shadow-lg">
+                {/* Header */}
+                <div className="space-y-2 text-center">
+                    <h1 className="text-3xl font-bold tracking-tight">
+                        Welcome to JustLink
+                    </h1>
+                    <p className="text-muted-foreground text-sm">
+                        Let&apos;s set up your profile and workspace
+                    </p>
+                </div>
 
-            <Form {...form}>
-                <form
-                    onSubmit={form.handleSubmit(onSubmit)}
-                    className="space-y-4"
-                >
-                    <FormField
-                        name="username"
-                        control={form.control}
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Username</FormLabel>
-                                <FormControl>
-                                    <Input
-                                        placeholder="Choose your username"
-                                        {...field}
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
+                {/* Profile image preview */}
+                <div className="flex justify-center">
+                    <div className="relative">
+                        <Image
+                            src={profileImage}
+                            alt="Profile Preview"
+                            width={120}
+                            height={120}
+                            quality={100}
+                            className="border-primary/10 rounded-full border-4 shadow-md"
+                        />
+                    </div>
+                </div>
 
-                    <FormField
-                        name="workspaceName"
-                        control={form.control}
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Workspace Name</FormLabel>
-                                <FormControl>
-                                    <Input
-                                        placeholder="Enter your workspace name"
-                                        {...field}
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-
-                    <FormField
-                        name="slug"
-                        control={form.control}
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Slug </FormLabel>
-                                <FormControl>
-                                    <Input
-                                        {...field}
-                                        readOnly
-                                        className="bg-gray-100"
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-
-                    <Button
-                        type="submit"
-                        className="w-full"
-                        disabled={isLoading}
+                <Form {...form}>
+                    <form
+                        onSubmit={form.handleSubmit(onSubmit)}
+                        className="space-y-5"
                     >
-                        {isLoading ? 'Saving...' : 'Continue'}
-                    </Button>
-                </form>
-            </Form>
+                        <FormField
+                            name="username"
+                            control={form.control}
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel className="text-sm font-medium">
+                                        Username
+                                    </FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            placeholder="Choose your username"
+                                            className="h-11"
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+
+                        <FormField
+                            name="workspaceName"
+                            control={form.control}
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel className="text-sm font-medium">
+                                        Workspace Name
+                                    </FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            placeholder="Enter your workspace name"
+                                            className="h-11"
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+
+                        <FormField
+                            name="slug"
+                            control={form.control}
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel className="text-sm font-medium">
+                                        Workspace Slug
+                                    </FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            {...field}
+                                            readOnly
+                                            className="bg-muted/50 h-11 cursor-not-allowed"
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+
+                        <Button
+                            type="submit"
+                            className="mt-6 h-11 w-full text-base font-medium"
+                            disabled={isLoading}
+                        >
+                            {isLoading
+                                ? 'Setting up...'
+                                : 'Complete Onboarding'}
+                        </Button>
+                    </form>
+                </Form>
+            </div>
         </div>
     )
 }
