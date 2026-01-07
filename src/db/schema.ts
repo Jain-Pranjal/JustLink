@@ -1,24 +1,35 @@
+import { desc, relations } from 'drizzle-orm'
 import {
+    boolean,
+    integer,
+    pgEnum,
     pgTable,
     text,
-    varchar,
     timestamp,
-    integer,
-    boolean,
     unique,
-    pgEnum,
+    varchar,
 } from 'drizzle-orm/pg-core'
-import { relations } from 'drizzle-orm'
 import { nanoid } from 'nanoid'
+
+// Common base fields for all tables
+const baseFields = {
+    id: text('id')
+        .primaryKey()
+        .$defaultFn(() => nanoid(10)),
+    createdAt: timestamp('created_at', { withTimezone: true })
+        .defaultNow()
+        .notNull(),
+    updatedAt: timestamp('updated_at', { withTimezone: true })
+        .defaultNow()
+        .notNull(),
+}
 
 // TODO: need to make a component to take the username(globally) after signup + workspace user name also for that user(not globally) - unique per user
 //TODO: do we have the username for google login?
 //TODO: so we need to insert the username in both the user and folio tables (will work like workspace)
 
 export const user = pgTable('user', {
-    id: text('id')
-        .primaryKey()
-        .$defaultFn(() => nanoid(10)),
+    ...baseFields,
     userName: text('user_name').unique(), // Will be set after social auth signup
     name: text('name').notNull(),
     email: text('email').notNull().unique(),
@@ -30,12 +41,6 @@ export const user = pgTable('user', {
         .$defaultFn(() => false)
         .notNull(),
     image: text('image'),
-    createdAt: timestamp('created_at')
-        .$defaultFn(() => /* @__PURE__ */ new Date())
-        .notNull(),
-    updatedAt: timestamp('updated_at')
-        .$defaultFn(() => /* @__PURE__ */ new Date())
-        .notNull(),
 })
 
 export const userRelations = relations(user, ({ one }) => ({
@@ -46,9 +51,7 @@ export const userRelations = relations(user, ({ one }) => ({
 }))
 
 export const session = pgTable('session', {
-    id: text('id')
-        .primaryKey()
-        .$defaultFn(() => nanoid(10)),
+    ...baseFields,
     expiresAt: timestamp('expires_at').notNull(),
     token: text('token').notNull().unique(),
     ipAddress: text('ip_address'),
@@ -56,18 +59,10 @@ export const session = pgTable('session', {
     userId: text('user_id')
         .notNull()
         .references(() => user.id, { onDelete: 'cascade' }),
-    createdAt: timestamp('created_at', { withTimezone: true })
-        .defaultNow()
-        .notNull(),
-    updatedAt: timestamp('updated_at', { withTimezone: true })
-        .defaultNow()
-        .notNull(),
 })
 
 export const account = pgTable('account', {
-    id: text('id')
-        .primaryKey()
-        .$defaultFn(() => nanoid(10)),
+    ...baseFields,
     accountId: text('account_id').notNull(),
     providerId: text('provider_id').notNull(),
     userId: text('user_id')
@@ -80,46 +75,26 @@ export const account = pgTable('account', {
     refreshTokenExpiresAt: timestamp('refresh_token_expires_at'),
     scope: text('scope'),
     password: text('password'),
-    createdAt: timestamp('created_at').notNull(),
-    updatedAt: timestamp('updated_at').notNull(),
 })
 
 export const verification = pgTable('verification', {
-    id: text('id')
-        .primaryKey()
-        .$defaultFn(() => nanoid(10)),
+    ...baseFields,
     identifier: text('identifier').notNull(),
     value: text('value').notNull(),
     expiresAt: timestamp('expires_at').notNull(),
-    createdAt: timestamp('created_at').$defaultFn(
-        () => /* @__PURE__ */ new Date()
-    ),
-    updatedAt: timestamp('updated_at').$defaultFn(
-        () => /* @__PURE__ */ new Date()
-    ),
 })
 
 // waitlist
 export const waitlist = pgTable('waitlist', {
-    id: text('id')
-        .primaryKey()
-        .$defaultFn(() => nanoid(10)),
+    ...baseFields,
     email: text('email').notNull().unique(), // Unique email for each waitlist
-    createdAt: timestamp('created_at', { withTimezone: true, mode: 'date' })
-        .defaultNow()
-        .notNull(),
-    updatedAt: timestamp('updated_at', { withTimezone: true, mode: 'date' })
-        .defaultNow()
-        .notNull(),
 })
 
 // ---------------- WORKSPACES ----------------
 export const workspaces = pgTable(
     'workspaces',
     {
-        id: text('id')
-            .primaryKey()
-            .$defaultFn(() => nanoid(10)),
+        ...baseFields,
         name: text('name').notNull(),
         slug: text('slug').notNull(),
         description: text('description'),
@@ -127,13 +102,6 @@ export const workspaces = pgTable(
         userId: text('user_id')
             .notNull()
             .references(() => user.id, { onDelete: 'cascade' }),
-
-        createdAt: timestamp('created_at', { withTimezone: true })
-            .defaultNow()
-            .notNull(),
-        updatedAt: timestamp('updated_at', { withTimezone: true })
-            .defaultNow()
-            .notNull(),
     },
     (table) => ({
         uniqueUserSlug: unique().on(table.userId, table.slug), // enforce per-user slug uniqueness
@@ -149,9 +117,7 @@ export const workspaceRelations = relations(workspaces, ({ one }) => ({
 
 // ---------------- WORKSPACE MEMBERS (for team feature) ----------------
 export const workspaceMembers = pgTable('workspace_members', {
-    id: text('id')
-        .primaryKey()
-        .$defaultFn(() => nanoid(10)),
+    ...baseFields,
 
     workspaceId: text('workspace_id')
         .notNull()
@@ -162,19 +128,13 @@ export const workspaceMembers = pgTable('workspace_members', {
         .references(() => user.id, { onDelete: 'cascade' }),
 
     role: text('role').notNull().default('member'), // owner | admin | member
-
-    createdAt: timestamp('created_at', { withTimezone: true })
-        .defaultNow()
-        .notNull(),
 })
 
 // --------------FOLIOS (Link-in-bio page)-------------------
 export const folios = pgTable(
     'folios',
     {
-        id: text('id')
-            .primaryKey()
-            .$defaultFn(() => nanoid(10)),
+        ...baseFields,
         userId: text('user_id')
             .references(() => user.id, { onDelete: 'cascade' })
             .notNull(),
@@ -183,15 +143,9 @@ export const folios = pgTable(
             .references(() => workspaces.id, { onDelete: 'cascade' }),
 
         slug: varchar('slug', { length: 100 }).notNull(), //justlink.live/@pranjal
-        title: varchar('title', { length: 255 }),
+        displayName: varchar('display_name', { length: 255 }),
         bio: text('bio'),
         theme: varchar('theme', { length: 50 }),
-        createdAt: timestamp('created_at', { withTimezone: true, mode: 'date' })
-            .defaultNow()
-            .notNull(),
-        updatedAt: timestamp('updated_at', { withTimezone: true })
-            .defaultNow()
-            .notNull(),
     },
     (table) => ({
         uniquePerFolio: unique().on(table.slug), // each folio handle must be unique globally
@@ -208,22 +162,23 @@ export const foliosRelations = relations(folios, ({ one, many }) => ({
 
 // --------------FOLIO ITEMS (Links inside folio)-------------------
 export const folioItems = pgTable('folio_items', {
-    id: text('id')
-        .primaryKey()
-        .$defaultFn(() => nanoid(10)),
+    ...baseFields,
     folioId: text('folio_id')
         .references(() => folios.id, { onDelete: 'cascade' })
         .notNull(),
     title: varchar('title', { length: 255 }).notNull(),
-    url: text('url').notNull(),
+    url: text('url'),
+    description: text('description'),
+    type: varchar('type', { length: 50 }).notNull().default('link'),
+    icon: varchar('icon', { length: 100 }),
+    color: varchar('color', { length: 50 }),
+    image: text('image'),
+    username: varchar('username', { length: 255 }),
+    followers: varchar('followers', { length: 100 }),
+    action: varchar('action', { length: 100 }),
+    subtitle: varchar('subtitle', { length: 255 }),
     order: integer('order'),
     isActive: boolean('is_active').default(true).notNull(),
-    createdAt: timestamp('created_at', { withTimezone: true, mode: 'date' })
-        .defaultNow()
-        .notNull(),
-    updatedAt: timestamp('updated_at', { withTimezone: true, mode: 'date' })
-        .defaultNow()
-        .notNull(),
 })
 
 export const folioItemsRelations = relations(folioItems, ({ one }) => ({
@@ -235,14 +190,17 @@ export const folioItemsRelations = relations(folioItems, ({ one }) => ({
 
 // --------------SHORT LINKS-------------------
 export const shortLinks = pgTable('short_links', {
-    id: text('id')
-        .primaryKey()
-        .$defaultFn(() => nanoid(10)),
+    ...baseFields,
 
     // Each shortlink is owned by a single user
     userId: text('user_id')
         .notNull()
         .references(() => user.id, { onDelete: 'cascade' }),
+
+    // Each shortlink belongs to a workspace
+    workspaceId: text('workspace_id')
+        .notNull()
+        .references(() => workspaces.id, { onDelete: 'cascade' }),
 
     // Globally unique slug (no matter workspace)
     slug: varchar('slug', { length: 100 }).notNull().unique(),
@@ -251,13 +209,6 @@ export const shortLinks = pgTable('short_links', {
     destination: text('destination').notNull(),
     clicks: integer('clicks').default(0).notNull(), //TODO: need to make a separate route that will auto inc this
     expiresAt: timestamp('expires_at'),
-
-    createdAt: timestamp('created_at', { withTimezone: true, mode: 'date' })
-        .defaultNow()
-        .notNull(),
-    updatedAt: timestamp('updated_at', { withTimezone: true, mode: 'date' })
-        .defaultNow()
-        .notNull(),
 })
 
 export const shortLinksRelations = relations(shortLinks, ({ one, many }) => ({
@@ -265,16 +216,29 @@ export const shortLinksRelations = relations(shortLinks, ({ one, many }) => ({
         fields: [shortLinks.userId],
         references: [user.id],
     }),
+    workspace: one(workspaces, {
+        fields: [shortLinks.workspaceId],
+        references: [workspaces.id],
+    }),
     tags: many(shortLinkTags),
 }))
+
+// --------------TAGS (Grouping for short links)-------------------
+export const tagColorEnum = pgEnum('tag_color', [
+    'red',
+    'green',
+    'blue',
+    'yellow',
+    'purple',
+    'orange',
+    'pink',
+])
 
 // --------------TAGS (Grouping for short links)-------------------
 export const tags = pgTable(
     'tags',
     {
-        id: text('id')
-            .primaryKey()
-            .$defaultFn(() => nanoid(10)),
+        ...baseFields,
 
         userId: text('user_id')
             .notNull()
@@ -283,12 +247,7 @@ export const tags = pgTable(
             .notNull()
             .references(() => workspaces.id, { onDelete: 'cascade' }),
         tagName: varchar('tag_name', { length: 50 }).notNull(),
-        createdAt: timestamp('created_at', { withTimezone: true, mode: 'date' })
-            .defaultNow()
-            .notNull(),
-        updatedAt: timestamp('updated_at', { withTimezone: true, mode: 'date' })
-            .defaultNow()
-            .notNull(),
+        tagColour: tagColorEnum('tag_colour').notNull(),
     },
     (table) => ({
         uniqueWorkspaceTag: unique().on(table.workspaceId, table.tagName),
@@ -299,17 +258,12 @@ export const tags = pgTable(
 export const shortLinkTags = pgTable(
     'short_link_tags',
     {
-        id: text('id')
-            .primaryKey()
-            .$defaultFn(() => nanoid(10)),
+        ...baseFields,
         shortLinkId: text('short_link_id')
             .references(() => shortLinks.id, { onDelete: 'cascade' })
             .notNull(),
         tagId: text('tag_id')
             .references(() => tags.id, { onDelete: 'cascade' })
-            .notNull(),
-        createdAt: timestamp('created_at', { withTimezone: true, mode: 'date' })
-            .defaultNow()
             .notNull(),
     },
     (table) => ({
@@ -342,9 +296,7 @@ export const shortLinkTagsRelations = relations(shortLinkTags, ({ one }) => ({
 export const targetTypeEnum = pgEnum('target_type', ['folio', 'shortlink']) //we can extend this to track other types
 
 export const analytics = pgTable('analytics', {
-    id: text('id')
-        .primaryKey()
-        .$defaultFn(() => nanoid(10)),
+    ...baseFields,
     targetType: targetTypeEnum('target_type').notNull(), // folio | shortlink
     targetId: text('target_id').notNull(), // points to folios.id OR shortLinks.id
 
@@ -353,12 +305,6 @@ export const analytics = pgTable('analytics', {
     country: varchar('country', { length: 100 }),
     city: varchar('city', { length: 100 }),
     referrer: varchar('referrer', { length: 500 }),
-    createdAt: timestamp('created_at', { withTimezone: true, mode: 'date' })
-        .defaultNow()
-        .notNull(),
-    updatedAt: timestamp('updated_at', { withTimezone: true, mode: 'date' })
-        .defaultNow()
-        .notNull(),
 })
 
 export const FullSchema = {
